@@ -13,6 +13,8 @@ from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import IntegrityError
 
+import validation
+
 import pickle as _std_pickle
 try:
     import dill as _pickle  # allows loading classes not importable by module path
@@ -105,22 +107,35 @@ def create_app():
             db_ok = False
         return jsonify({"message": "The server is up and running.", "db_connected": db_ok}), 200
 
+    
     # POST /api/create-user {email, login, password}
     @app.post("/api/create-user")
     def create_user():
-        payload = request.get_json(silent=True) or {}
-        email = (payload.get("email") or "").strip().lower()
-        login = (payload.get("login") or "").strip()
-        password = payload.get("password") or ""
-        if not email or not login or not password:
-            return jsonify({"error": "email, login, and password are required"}), 400
+        payload = request.get_json(silent=True)
+        if not isinstance(payload, dict):
+            return jsonify({"error": "Request body must be a JSON object."}), 400
+
+        email = payload.get("email")
+        login = payload.get("login")
+        password = payload.get("password")
+
+        if isinstance(email, str):
+            email = email.strip().lower()
+        if isinstance(login, str):
+            login = login.strip()
+
+        errors = validation.validate_signup(email=email, login=login, password=password)
+
+        if errors:
+            return jsonify({"error": "Please correct the highlighted fields.","errors": errors}), 400
 
         hpw = generate_password_hash(password)
 
         try:
             with get_engine().begin() as conn:
                 res = conn.execute(
-                    text("INSERT INTO Users (email, hpassword, login) VALUES (:email, :hpw, :login)"),
+                    text("INSERT INTO Users (email, hpassword, login) "
+                        "VALUES (:email, :hpw, :login)"),
                     {"email": email, "hpw": hpw, "login": login},
                 )
                 uid = int(res.lastrowid)
@@ -129,10 +144,11 @@ def create_app():
                     {"id": uid},
                 ).one()
         except IntegrityError:
-            return jsonify({"error": "email or login already exists"}), 409
-        except Exception as e:
-            return jsonify({"error": f"database error: {str(e)}"}), 503
-
+            return jsonify({"error": "That email or username is already taken."}), 409
+        except Exception:
+            app.logger.exception("create-user: insert failed")
+            return jsonify({"error": "Service temporarily unavailable."}), 503
+    
         return jsonify({"id": row.id, "email": row.email, "login": row.login}), 201
 
     # POST /api/login {login, password}
