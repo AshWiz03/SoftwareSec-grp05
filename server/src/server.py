@@ -764,22 +764,24 @@ def create_app():
         if not method or not isinstance(key, str):
             return jsonify({"error": "method, and key are required"}), 400
 
-        # lookup the document; FIXME enforce ownership
+        # lookup the specific watermarked version; FIXME enforce ownership
         try:
             with get_engine().connect() as conn:
                 row = conn.execute(
-                    text("""
-                        SELECT id, name, path
-                        FROM Documents
-                        WHERE id = :id
-                    """),
-                    {"id": doc_id},
-                ).first()
+            text("""
+                SELECT id, path
+                FROM Versions
+                WHERE documentid = :id AND method = :method
+                ORDER BY id DESC
+                LIMIT 1
+            """),
+            {"id": doc_id, "method": method},
+        ).first()
         except Exception as e:
             return jsonify({"error": f"database error: {str(e)}"}), 503
 
         if not row:
-            return jsonify({"error": "document not found"}), 404
+            return jsonify({"error": "watermarked version not found"}), 404
 
         # resolve path safely under STORAGE_DIR
         storage_root = Path(app.config["STORAGE_DIR"]).resolve()
