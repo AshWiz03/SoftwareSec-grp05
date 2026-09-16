@@ -2,6 +2,7 @@ import os
 import io
 import hashlib
 import datetime as dt
+import validation
 from pathlib import Path
 from functools import wraps
 
@@ -12,8 +13,6 @@ from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import IntegrityError
-
-import validation
 
 import pickle as _std_pickle
 try:
