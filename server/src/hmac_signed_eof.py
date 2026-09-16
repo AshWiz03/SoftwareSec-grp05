@@ -1,7 +1,9 @@
 from __future__ import annotations
-import hmac
+import base64
 import hashlib
 import json
+
+from cryptography.fernet import Fernet, InvalidToken
 
 from watermarking_method import (
     WatermarkingMethod,
@@ -13,6 +15,11 @@ from watermarking_method import (
 )
 
 _MARKER = b"%%WATERMARK-HMAC-SIGNED%%"
+
+def _derive_fernet_key(key: str) -> bytes:
+    """Turn an arbitrary key string into a valid 32-byte urlsafe-base64 Fernet key."""
+    digest = hashlib.sha256(key.encode()).digest()
+    return base64.urlsafe_b64encode(digest)
 
 class HMACsignedwatermark(WatermarkingMethod):
     name="HMAC-Signed"
@@ -26,30 +33,35 @@ class HMACsignedwatermark(WatermarkingMethod):
     
 
 
-    def add_watermark(self, pdf:PdfSource, secret, key:str, position:str |None=None) -> bytes:
-        data=load_pdf_bytes(pdf)
-        payload={"secret":secret}
-        payload_byte=json.dumps(payload,sort_keys=True).encode()
-        sig = hmac.new(key.encode(), payload_byte, hashlib.sha256).hexdigest()
-        blob = payload_byte + b"." + sig.encode()
-        encoded = _MARKER + b":" + blob + b":" + _MARKER
-        return data + b"\n" + encoded 
+    def add_watermark(self, pdf: PdfSource, secret, key: str, position: str | None = None) -> bytes:
+        data = load_pdf_bytes(pdf)
+        fernet_key = _derive_fernet_key(key)
+        f = Fernet(fernet_key)
 
+        payload = {"secret": secret}
+        payload_bytes = json.dumps(payload, sort_keys=True).encode()
+        token = f.encrypt(payload_bytes)  # encrypted + authenticated + randomized, all in one
 
+        encoded = _MARKER + b":" + token + b":" + _MARKER
+        return data + b"\n" + encoded
+    
     def read_secret(self, pdf: PdfSource, key: str) -> str:
         data = load_pdf_bytes(pdf)
-        start = data.find(_MARKER)          # ← find, not rfind — grabs the FIRST (opening) marker
+        start = data.find(_MARKER)
         if start == -1:
             raise SecretNotFoundError("Watermark not found")
         body = data[start + len(_MARKER) + 1:]
-        end = body.find(_MARKER)            # ← find here too — first marker WITHIN body is the closing one
+        end = body.find(_MARKER)
         if end == -1:
             raise SecretNotFoundError("Malformed watermark: closing marker not found")
-        blob = body[:end - 1]
-        payload_bytes, sig = blob.rsplit(b".", 1)
-        expected_sig = hmac.new(key.encode(), payload_bytes, hashlib.sha256).hexdigest()
-        if not hmac.compare_digest(expected_sig, sig.decode()):
-            raise InvalidKeyError("Invalid signature - wrong key or tampered watermark")
-        payload = json.loads(payload_bytes)
-        return payload["secret"]   
+        token = body[:end - 1]
 
+        fernet_key = _derive_fernet_key(key)
+        f = Fernet(fernet_key)
+        try:
+            payload_bytes = f.decrypt(token)
+        except InvalidToken:
+            raise InvalidKeyError("Invalid signature - wrong key or tampered watermark")
+
+        payload = json.loads(payload_bytes)
+        return payload["secret"]
