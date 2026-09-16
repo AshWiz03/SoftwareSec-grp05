@@ -768,15 +768,16 @@ def create_app():
         try:
             with get_engine().connect() as conn:
                 row = conn.execute(
-            text("""
-                SELECT id, path
-                FROM Versions
-                WHERE documentid = :id AND method = :method
-                ORDER BY id DESC
+                text("""
+                SELECT v.id, v.path
+                FROM Versions v
+                JOIN Documents d ON v.documentid = d.id
+                WHERE v.documentid = :id AND v.method = :method AND d.ownerid = :uid
+                ORDER BY v.id DESC
                 LIMIT 1
-            """),
-            {"id": doc_id, "method": method},
-        ).first()
+                """),
+                {"id": doc_id, "method": method, "uid": int(g.user["id"])},
+            ).first()
         except Exception as e:
             return jsonify({"error": f"database error: {str(e)}"}), 503
 
