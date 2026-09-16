@@ -89,3 +89,47 @@ def validate_signup(*, email: object, login: object, password: object) -> dict[s
         if message:
             errors[field] = message
     return errors
+
+
+# Document upload (PDF)
+
+UPLOAD_FILENAME_MAX_LENGTH = 200
+DISPLAY_NAME_MAX_LENGTH = 200
+PDF_MAGIC = b"%PDF-"
+
+# Allowlist, not blocklist: only letters, digits, dot, underscore, hyphen,
+# and must start/end alphanumeric.
+_UPLOAD_FILENAME = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$")
+
+def sanitize_filename(raw_name: object) -> str | None:
+    #Return a filesystem- and shell-safe .pdf filename, or None if unsafe.
+    
+    if not isinstance(raw_name, str) or not raw_name:
+        return None
+
+    # Drop any path component / NUL bytes a client tried to sneak in.
+    name = raw_name.replace("\\", "/").split("/")[-1].replace("\x00", "")
+
+    if len(name) > UPLOAD_FILENAME_MAX_LENGTH:
+        return None
+    if not name.lower().endswith(".pdf"):
+        return None
+    if not _UPLOAD_FILENAME.match(name):
+        return None
+
+    return name
+
+def sanitize_display_name(raw_name: object, fallback: str) -> str:
+    #Strip control characters and cap length for a user-supplied display name.
+    if not isinstance(raw_name, str) or not raw_name.strip():
+        return fallback
+    cleaned = "".join(c for c in raw_name.strip() if c.isprintable())
+    return cleaned[:DISPLAY_NAME_MAX_LENGTH] or fallback
+
+
+def is_pdf_file(fileobj) -> bool:
+    #Check the actual bytes of an uploaded file, not its extension/mimetype.
+    pos = fileobj.tell()
+    header = fileobj.read(len(PDF_MAGIC))
+    fileobj.seek(pos)
+    return header == PDF_MAGIC
