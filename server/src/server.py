@@ -6,6 +6,7 @@ from pathlib import Path
 from functools import wraps
 
 from flask import Flask, jsonify, request, g, send_file
+from rmap import RMAPServer, RMAPError
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
