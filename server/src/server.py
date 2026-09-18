@@ -185,15 +185,27 @@ def create_app():
         if not file or file.filename == "":
             return jsonify({"error": "empty filename"}), 400
 
-        fname = file.filename
+        safe_fname = validation.sanitize_filename(file.filename)
+        if safe_fname is None:
+            return jsonify({
+                "error": "invalid filename; only alphanumeric .pdf filenames are allowed"
+            }), 400
+        
+        if not validation.is_pdf_file(file.stream):
+            return jsonify({"error": "file is not a valid PDF"}), 400
 
         user_dir = app.config["STORAGE_DIR"] / "files" / g.user["login"]
         user_dir.mkdir(parents=True, exist_ok=True)
 
         ts = dt.datetime.utcnow().strftime("%Y%m%dT%H%M%S%fZ")
-        final_name = request.form.get("name") or fname
-        stored_name = f"{ts}__{fname}"
+        final_name = validation.sanitize_display_name(request.form.get("name"), fallback=safe_fname)
+        stored_name = f"{ts}__{safe_fname}"
         stored_path = user_dir / stored_name
+
+        #confirm we didn't escape user_dir.
+        if stored_path.resolve().parent != user_dir.resolve():
+            return jsonify({"error": "invalid path"}), 400
+        
         file.save(stored_path)
 
         sha_hex = _sha256_file(stored_path)
