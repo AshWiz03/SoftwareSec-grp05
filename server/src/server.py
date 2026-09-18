@@ -44,6 +44,21 @@ def create_app():
     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
 
     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+    # --- RMAP Server setup ---
+    _rmap_server = None
+
+    def get_rmap_server():
+        global _rmap_server
+        if _rmap_server is None:
+            keys_dir = Path(__file__).parent.parent / "keys"
+            _rmap_server = RMAPServer(
+            server_public_key_path=str(keys_dir / "server_pub.asc"),
+            server_private_key_path=str(keys_dir / "server_priv.asc"),
+            passphrase=os.environ.get("SERVER_KEY_PASSPHRASE"),
+            linkPrefix=os.environ.get("LINK_PREFIX", ""),
+        )
+        _rmap_server.loadIdentities(str(keys_dir))
+    return _rmap_server
 
     # --- DB engine only (no Table metadata) ---
     def db_url() -> str:
