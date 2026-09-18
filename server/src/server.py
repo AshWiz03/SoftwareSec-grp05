@@ -678,8 +678,9 @@ def create_app():
             "size": len(wm_bytes),
         }), 201
         
-        
-    @app.post("/api/load-plugin")
+    #This api endpoint is disabled until a more detailed understanding of it is gathered.
+    # AFAIK after some research it is potentially harmful.    
+    #@app.post("/api/load-plugin")
     @require_auth
     def load_plugin():
         """
