@@ -58,7 +58,7 @@ def create_app():
             linkPrefix=os.environ.get("LINK_PREFIX", ""),
         )
         _rmap_server.loadIdentities(str(keys_dir))
-    return _rmap_server
+        return _rmap_server
 
     # --- DB engine only (no Table metadata) ---
     def db_url() -> str:
@@ -866,7 +866,21 @@ def create_app():
             "method": method,
             "position": position
         }), 201
-
+    #
+    @app.post("/api/rmap-initiate")
+    def rmap_initiate():
+        payload = request.get_json(silent=True)
+        if isinstance(payload, dict):
+            
+        if not payload or "payload" not in payload:
+            return jsonify({"error:" "missing payload"}), 400
+        try:
+            rmap = get_rmap_server()
+            identity, response_msg1 = rmap.receiveMsg1(payload)
+        except RMAPError as e:
+            return jsonify({"error": str(e)}), 400
+    
+        return response_msg1
     return app
     
 
