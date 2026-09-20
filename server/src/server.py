@@ -870,17 +870,18 @@ def create_app():
     @app.post("/api/rmap-initiate")
     def rmap_initiate():
         payload = request.get_json(silent=True)
-        if isinstance(payload, dict):
-            
-        if not payload or "payload" not in payload:
+
+        if not isinstance(payload, dict) or "payload" not in payload:
             return jsonify({"error:" "missing payload"}), 400
+        
         try:
             rmap = get_rmap_server()
             identity, response_msg1 = rmap.receiveMsg1(payload)
         except RMAPError as e:
             return jsonify({"error": str(e)}), 400
     
-        return response_msg1
+        return jsonify(response_msg1)
+    
     return app
     
 
