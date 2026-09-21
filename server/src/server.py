@@ -47,19 +47,17 @@ def create_app():
     # --- RMAP Server setup ---
     _rmap_server = None
     def get_rmap_server():
-        global _rmap_server
+        nonlocal _rmap_server
         if _rmap_server is None:
             keys_dir = Path(__file__).parent.parent / "keys"
             _rmap_server = RMAPServer(
-                server_public_key_path=str(keys_dir / "server_pub.asc"),
-                server_private_key_path=str(keys_dir / "server_priv.asc"),
-                passphrase=os.environ.get("SERVER_KEY_PASSPHRASE"),
-                linkPrefix=os.environ.get("LINK_PREFIX", ""),
-            )
+            server_public_key_path=str(keys_dir / "server_pub.asc"),
+            server_private_key_path=str(keys_dir / "server_priv.asc"),
+            passphrase=os.environ.get("SERVER_KEY_PASSPHRASE"),
+            linkPrefix=os.environ.get("LINK_PREFIX", ""),
+        )
             _rmap_server.loadIdentities(str(keys_dir))
         return _rmap_server
-
-    
 
     # --- DB engine only (no Table metadata) ---
     def db_url() -> str:
@@ -867,6 +865,7 @@ def create_app():
             "method": method,
             "position": position
         }), 201
+  
     # POST /api/rmap-get-link
     @app.post("/api/rmap-get-link")
     def rmap_get_link():
@@ -952,6 +951,28 @@ def create_app():
 
 
 
+    # POST /api/rmap-initiate
+    @app.post("/api/rmap-initiate")
+    def rmap_initiate():
+        payload = request.get_json(silent=True)
+
+        if not isinstance(payload, dict) or "payload" not in payload:
+            return jsonify({"error": "missing payload"}), 400
+        
+        try:
+            rmap = get_rmap_server()
+            identity, response_msg1 = rmap.receiveMsg1(payload)
+        except RMAPError as e:
+            app.logger.warning("rmap-initiate rejected: %s", e)
+            return jsonify({"error": "invalid request"}), 400
+        except (KeyError, TypeError, ValueError) as e:
+            app.logger.warning("rmap-initiate bad message: %r", e)
+            return jsonify({"error": "invalid request"}), 400
+        except Exception as e:
+            app.logger.exception("rmap-initiate failed")
+            return jsonify({"error": "internal error"}), 500
+        return jsonify(response_msg1)
+    
     return app
     
 
