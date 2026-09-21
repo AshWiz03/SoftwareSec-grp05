@@ -872,14 +872,20 @@ def create_app():
         payload = request.get_json(silent=True)
 
         if not isinstance(payload, dict) or "payload" not in payload:
-            return jsonify({"error:" "missing payload"}), 400
+            return jsonify({"error": "missing payload"}), 400
         
         try:
             rmap = get_rmap_server()
             identity, response_msg1 = rmap.receiveMsg1(payload)
         except RMAPError as e:
-            return jsonify({"error": str(e)}), 400
-    
+            app.logger.warning("rmap-initiate rejected: %s", e)
+            return jsonify({"error": "invalid request"}), 400
+        except (KeyError, TypeError, ValueError) as e:
+            app.logger.warning("rmap-initiate bad message: %r", e)
+            return jsonify({"error": "invalid request"}), 400
+        except Exception as e:
+            app.logger.exception("rmap-initiate failed")
+            return jsonify({"error": "internal error"}), 500
         return jsonify(response_msg1)
     
     return app
