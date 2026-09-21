@@ -46,7 +46,6 @@ def create_app():
     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
     # --- RMAP Server setup ---
     _rmap_server = None
-
     def get_rmap_server():
         nonlocal _rmap_server
         if _rmap_server is None:
@@ -866,7 +865,93 @@ def create_app():
             "method": method,
             "position": position
         }), 201
-    #
+  
+    # POST /api/rmap-get-link
+    @app.post("/api/rmap-get-link")
+    def rmap_get_link():
+        payload=request.get_json(silent=True) or {}
+        msg2_payload=payload.get("payload")
+
+        if not msg2_payload:
+            return jsonify ({"error":"Payload is required"}),400 
+        try:
+            rmap=get_rmap_server()
+            msg2_result=rmap.receiveMsg2(msg2_payload)
+        except RMAPError as e:
+            return jsonify({"error": f"RMAP error: {str(e)}"}), 400
+        except Exception as e:
+            return jsonify({"error": f"Failed to process message: {str(e)}"}), 400
+        identity=msg2_result["identity"]
+        secret=msg2_result["secret"]
+        link_token = rmap.getExpectedLink(identity, secret)
+        try:
+            with get_engine().connect() as conn:
+                row=conn.execute(text("""select id,name,path from documents order by id asc limit 1""")).first()
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+        if not row: 
+            return jsonify({"error":"No document available for watermarking"}),404
+        storage_root = Path(app.config["STORAGE_DIR"]).resolve()
+        file_path = Path(row.path)
+        if not file_path.is_absolute():
+            file_path = storage_root / file_path
+        file_path = file_path.resolve()
+
+        if not file_path.exists():
+            return jsonify({"error": "document file missing"}), 410
+        try: 
+            wm_bytes = WMUtils.apply_watermark(
+                pdf=str(file_path),
+                secret=secret,
+                key=link_token,
+                method="HMAC-Signed",
+                position=None
+            )
+        except Exception as e:
+            return jsonify({"error": f"watermarking failed: {str(e)}"}), 500
+        dest_dir = file_path.parent / "watermarks"
+        dest_dir.mkdir(parents=True, exist_ok=True)
+        dest_path = dest_dir / f"{link_token}.pdf"
+        try:
+            with dest_path.open("wb") as f:
+                f.write(wm_bytes)
+        except Exception as e:
+            return jsonify({"error": f"failed to write watermarked file: {str(e)}"}), 500
+        try :
+            with get_engine().begin() as conn:
+                conn.execute(
+                    text("""
+                        INSERT INTO Versions
+                        (documentid, link, intended_for, secret, method, position, path)
+                        VALUES (:documentid, :link, :intended_for, :secret, :method, :position, :path)
+                    """),
+                    {
+                        "documentid": int(row.id),
+                        "link": link_token,
+                        "intended_for": identity,
+                        "secret": secret,
+                        "method": "HMAC-Signed",
+                        "position": "",
+                        "path": str(dest_path),
+                    },)
+        except Exception as e:
+            return jsonify({"error": f"database error: {str(e)}"}), 503
+        try:
+            import json as _json
+            response_data = _json.dumps({"result": link_token})
+            encrypted_response = rmap.encrypt_for_identity(
+                identity,
+                response_data
+            )
+        except Exception as e:
+            return jsonify({"error": f"failed to encrypt response: {str(e)}"}), 500
+
+        return jsonify({"payload": encrypted_response}), 200
+
+
+
+
+    # POST /api/rmap-initiate
     @app.post("/api/rmap-initiate")
     def rmap_initiate():
         payload = request.get_json(silent=True)
