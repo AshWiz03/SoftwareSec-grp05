@@ -876,17 +876,16 @@ def create_app():
             return jsonify ({"error":"Payload is required"}),400 
         try:
             rmap=get_rmap_server()
-            msg2_result=rmap.receiveMsg2(msg2_payload)
+            msg2_result = rmap.receiveMsg2(payload)
         except RMAPError as e:
             return jsonify({"error": f"RMAP error: {str(e)}"}), 400
         except Exception as e:
             return jsonify({"error": f"Failed to process message: {str(e)}"}), 400
-        identity=msg2_result["identity"]
-        secret=msg2_result["secret"]
-        link_token = rmap.getExpectedLink(identity, secret)
+        identity, link_token, encrypted_response = msg2_result
+        
         try:
             with get_engine().connect() as conn:
-                row=conn.execute(text("""select id,name,path from documents order by id asc limit 1""")).first()
+                row=conn.execute(text("""select id,name,path from Documents order by id asc limit 1""")).first()
         except Exception as e:
             return jsonify({"error": f"database error: {str(e)}"}), 503
         if not row: 
@@ -902,7 +901,7 @@ def create_app():
         try: 
             wm_bytes = WMUtils.apply_watermark(
                 pdf=str(file_path),
-                secret=secret,
+                secret=link_token,
                 key=link_token,
                 method="HMAC-Signed",
                 position=None
@@ -929,22 +928,14 @@ def create_app():
                         "documentid": int(row.id),
                         "link": link_token,
                         "intended_for": identity,
-                        "secret": secret,
+                        "secret": link_token,
                         "method": "HMAC-Signed",
                         "position": "",
                         "path": str(dest_path),
                     },)
         except Exception as e:
             return jsonify({"error": f"database error: {str(e)}"}), 503
-        try:
-            import json as _json
-            response_data = _json.dumps({"result": link_token})
-            encrypted_response = rmap.encrypt_for_identity(
-                identity,
-                response_data
-            )
-        except Exception as e:
-            return jsonify({"error": f"failed to encrypt response: {str(e)}"}), 500
+        
 
         return jsonify({"payload": encrypted_response}), 200
 
