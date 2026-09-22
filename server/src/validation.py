@@ -99,7 +99,7 @@ PDF_MAGIC = b"%PDF-"
 
 # Allowlist, not blocklist: only letters, digits, dot, underscore, hyphen,
 # and must start/end alphanumeric.
-_UPLOAD_FILENAME = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9._\s-]*[A-Za-z0-9])?$")
+_UPLOAD_FILENAME = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9._\s()\-]*[A-Za-z0-9])?$")
 MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024  # 50 MB
 
 def sanitize_filename(raw_name: object) -> str | None:
