@@ -99,7 +99,8 @@ PDF_MAGIC = b"%PDF-"
 
 # Allowlist, not blocklist: only letters, digits, dot, underscore, hyphen,
 # and must start/end alphanumeric.
-_UPLOAD_FILENAME = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$")
+_UPLOAD_FILENAME = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9._\s-]*[A-Za-z0-9])?$")
+MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024  # 50 MB
 
 def sanitize_filename(raw_name: object) -> str | None:
     #Return a filesystem- and shell-safe .pdf filename, or None if unsafe.
@@ -133,3 +134,10 @@ def is_pdf_file(fileobj) -> bool:
     header = fileobj.read(len(PDF_MAGIC))
     fileobj.seek(pos)
     return header == PDF_MAGIC
+
+#CHECK FILESIZE, return true if lower than 50MB, else false
+def is_valid_pdf_size(fileobj) -> bool:
+    fileobj.seek(0, 2)
+    size = fileobj.tell()
+    fileobj.seek(0)     
+    return size <= MAX_FILE_SIZE_BYTES

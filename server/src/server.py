@@ -44,6 +44,8 @@ def create_app():
     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
 
     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+
+    app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB
     # --- RMAP Server setup ---
     _rmap_server = None
     def get_rmap_server():
@@ -199,9 +201,15 @@ def create_app():
         if "file" not in request.files:
             return jsonify({"error": "file is required (multipart/form-data)"}), 400
         file = request.files["file"]
+
         if not file or file.filename == "":
             return jsonify({"error": "empty filename"}), 400
-
+        
+        #CHECK FILESIZE
+        if not validation.is_valid_pdf_size(file.stream):
+            return jsonify({"error": "file exceeds maximum allowed size of 50 MB"}), 413
+        
+        #SANITIZE FILENAME
         safe_fname = validation.sanitize_filename(file.filename)
         if safe_fname is None:
             return jsonify({
