@@ -208,3 +208,6 @@ __marimo__/
 flag
 server/keys/server_priv.asc
 /server/test-keys
+test_rmap.py
+msg1.json
+test-keys
