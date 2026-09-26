@@ -65,8 +65,8 @@ class MetadataWatermark(WatermarkingMethod):
     def is_watermark_applicable(self, pdf: PdfSource, position: str | None = None) -> bool:
         try:
             data = load_pdf_bytes(pdf)
-            fitz.open(stream=data, filetype="pdf")
-            return True
+            doc = fitz.open(stream=data, filetype="pdf")
+            return doc.page_count > 0
         except Exception:
             return False
 
