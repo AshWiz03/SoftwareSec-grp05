@@ -17,8 +17,18 @@ Note that you should probably fork the repo and clone your own repo.
 ### Run python unit tests
 
 ```bash
-cd tatou/server
+cd ../server/test/
 
+# Run unit test for all endpoints
+pytest test_api.py -svv
+
+# Run a specific unit test
+pytest -k <test_function_name> -svv
+
+# Run unit tests against a specified server (local or VM) Default: localhost:5000
+pytest test_api.py -svv --base-url <server address>
+
+cd tatou/server
 # Create a python virtual environement
 python3 -m venv .venv
 

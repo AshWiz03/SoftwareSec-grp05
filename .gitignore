@@ -211,3 +211,5 @@ server/keys/server_priv.asc
 test_rmap.py
 msg1.json
 test-keys
+server/gen.py
+server/keys/test_group_priv.asc
