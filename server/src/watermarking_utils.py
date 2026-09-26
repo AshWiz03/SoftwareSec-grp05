@@ -27,7 +27,8 @@ To enable the richer exploration, install PyMuPDF:
 
 """
 from __future__ import annotations
-from hmac_signed_eof import HMACsignedwatermark  # type: ignor
+from hmac_signed_eof import HMACsignedwatermark  
+from hmac_text_render import HMACsignedwatermark as HMACTextRender
 from invisible_text_renderer import InvisibleTextRenderer
 from typing import Any, Dict, Final, Iterable, List, Mapping
 import base64
@@ -53,7 +54,8 @@ METHODS: Dict[str, WatermarkingMethod] = {
     AddAfterEOF.name: AddAfterEOF(),
     #UnsafeBashBridgeAppendEOF.name: UnsafeBashBridgeAppendEOF(),
     HMACsignedwatermark.name: HMACsignedwatermark(),
-    InvisibleTextRenderer.name: InvisibleTextRenderer()
+    InvisibleTextRenderer.name: InvisibleTextRenderer(),
+    HMACTextRender.name: HMACTextRender(),
 }
 """Registry of available watermarking methods.
 
