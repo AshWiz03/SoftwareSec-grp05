@@ -1,0 +1,21 @@
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends git ca-certificates openssh-client \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY pyproject.toml /app/pyproject.toml
+RUN pip install --no-cache-dir -e .
+
+COPY src /app/src
+RUN pip install --no-cache-dir -e . pytest requests
+
+COPY test /app/test
+COPY keys /app/keys
+
+CMD ["pytest", "test", "-svv", "--base-url=http://server:5000"]
