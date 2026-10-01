@@ -46,18 +46,18 @@ jobs:
             --exit-code-from tests \
             tests
 
+      - name: Publish test results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: unit_test_results/*.xml
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: unit-test-results
           path: unit_test_results/
-
-      - name: Publish test results
-        if: always()
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        with:
-          files: unit_test_results/*.xml
 
       - name: Tear down
         if: always()
