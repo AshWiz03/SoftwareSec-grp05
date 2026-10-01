@@ -1,0 +1,46 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create .env
+        env:
+          MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
+          MARIADB_USER: ${{ secrets.MARIADB_USER }}
+          MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          SERVER_KEY_PASSPHRASE: ${{ secrets.SERVER_KEY_PASSPHRASE }}
+        run: |
+          {
+            echo "MARIADB_ROOT_PASSWORD=$MARIADB_ROOT_PASSWORD"
+            echo "MARIADB_USER=$MARIADB_USER"
+            echo "MARIADB_PASSWORD=$MARIADB_PASSWORD"
+            echo "SECRET_KEY=$SECRET_KEY"
+            echo "SERVER_KEY_PASSPHRASE=$SERVER_KEY_PASSPHRASE"
+          } > .env
+
+      - name: Run tests
+        run: |
+          docker compose up --build \
+            --abort-on-container-exit \
+            --exit-code-from tests \
+            tests
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: unit_test_results/
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
