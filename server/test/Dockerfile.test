@@ -15,7 +15,10 @@ RUN pip install --no-cache-dir -e .
 COPY src /app/src
 RUN pip install --no-cache-dir -e . pytest requests
 
-COPY test /app/test
 COPY keys /app/keys
 
-CMD ["pytest", "test", "-svv", "--base-url=http://server:5000"]
+# Copy testfiles to container
+COPY test /app/test
+RUN chmod +x /app/test/run.sh
+# Entrypoint for unit tests. runs pytest command
+CMD ["/app/test/run.sh"] 
