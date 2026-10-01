@@ -1,0 +1,64 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create .env
+        env:
+          MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
+          MARIADB_USER: ${{ secrets.MARIADB_USER }}
+          MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          SERVER_KEY_PASSPHRASE: ${{ secrets.SERVER_KEY_PASSPHRASE }}
+        run: |
+          {
+            echo "MARIADB_ROOT_PASSWORD=$MARIADB_ROOT_PASSWORD"
+            echo "MARIADB_USER=$MARIADB_USER"
+            echo "MARIADB_PASSWORD=$MARIADB_PASSWORD"
+            echo "SECRET_KEY=$SECRET_KEY"
+            echo "SERVER_KEY_PASSPHRASE=$SERVER_KEY_PASSPHRASE"
+          } > .env
+      - name: Restore key
+        env:
+          SERVER_PRIV_B64: ${{ secrets.SERVER_PRIV_B64 }}
+          TEST_PRIV_64: ${{ secrets.TEST_PRIV_64 }}
+        run: |
+          mkdir -p server/keys
+          printf '%s' "$SERVER_PRIV_B64" | base64 -d > server/keys/server_priv.asc
+          printf '%s' "$TEST_PRIV_64" | base64 -d > server/keys/test_group_priv.asc
+
+      - name: Run tests
+        run: |
+          docker compose up --build \
+            --abort-on-container-exit \
+            --exit-code-from tests \
+            tests
+
+      - name: Publish test results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: unit_test_results/*.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: unit_test_results/
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v

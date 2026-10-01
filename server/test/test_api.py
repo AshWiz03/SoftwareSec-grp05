@@ -68,7 +68,7 @@ def test_rmap_initiate_invalid_payload(base_url):
     assert resp.json()["error"] == "invalid request"
 
 # TEST FULL RMAP HANSHAKE
-def test_full_rmap_handshake_flow(base_url):
+def test_full_rmap_handshake_flow(base_url, created_link):
     print("\nStep 1: Initializing RMAP Client")
  
     # Locate the keys directory relative to this test file (server/keys)
