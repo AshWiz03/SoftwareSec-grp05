@@ -30,6 +30,7 @@ from __future__ import annotations
 from hmac_signed_eof import HMACsignedwatermark  
 from hmac_text_render import HMACsignedwatermark as HMACTextRender
 from invisible_text_renderer import InvisibleTextRenderer
+from metadata_watermark import MetadataWatermark
 from typing import Any, Dict, Final, Iterable, List, Mapping
 import base64
 import hashlib
@@ -44,7 +45,7 @@ from watermarking_method import (
     load_pdf_bytes,
 )
 from add_after_eof import AddAfterEOF
-#from unsafe_bash_bridge_append_eof import UnsafeBashBridgeAppendEOF
+# from unsafe_bash_bridge_append_eof import UnsafeBashBridgeAppendEOF
 
 # --------------------
 # Method registry
@@ -52,9 +53,10 @@ from add_after_eof import AddAfterEOF
 
 METHODS: Dict[str, WatermarkingMethod] = {
     AddAfterEOF.name: AddAfterEOF(),
-    #UnsafeBashBridgeAppendEOF.name: UnsafeBashBridgeAppendEOF(),
+    # UnsafeBashBridgeAppendEOF.name: UnsafeBashBridgeAppendEOF(),
     HMACsignedwatermark.name: HMACsignedwatermark(),
     InvisibleTextRenderer.name: InvisibleTextRenderer(),
+    MetadataWatermark.name: MetadataWatermark(),
     HMACTextRender.name: HMACTextRender(),
 }
 """Registry of available watermarking methods.
@@ -102,6 +104,7 @@ def apply_watermark(
     """Apply a watermark using the specified method and return new PDF bytes."""
     m = get_method(method)
     return m.add_watermark(pdf=pdf, secret=secret, key=key, position=position)
+
 
 def is_watermarking_applicable(
     method: str | WatermarkingMethod,
@@ -179,7 +182,8 @@ def explore_pdf(pdf: PdfSource) -> Dict[str, Any]:
                 "id": f"page:{page_index:04d}",
                 "type": "Page",
                 "index": page_index,
-                "bbox": list(doc.load_page(page_index).bound()),  # [x0,y0,x1,y1]
+                # [x0,y0,x1,y1]
+                "bbox": list(doc.load_page(page_index).bound()),
             }
             root["children"].append(node)
 
@@ -190,7 +194,8 @@ def explore_pdf(pdf: PdfSource) -> Dict[str, Any]:
                 s = doc.xref_object(xref, compressed=False) or ""
             except Exception:
                 s = ""
-            s_bytes = s.encode("latin-1", "replace") if isinstance(s, str) else b""
+            s_bytes = s.encode(
+                "latin-1", "replace") if isinstance(s, str) else b""
             # Type detection
             m = _TYPE_RE.search(s_bytes)
             pdf_type = m.group(1).decode("ascii", "replace") if m else "Object"
@@ -254,4 +259,3 @@ __all__ = [
     "explore_pdf",
     "is_watermarking_applicable"
 ]
-
