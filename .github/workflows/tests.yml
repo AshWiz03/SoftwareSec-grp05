@@ -26,7 +26,15 @@ jobs:
             echo "SECRET_KEY=$SECRET_KEY"
             echo "SERVER_KEY_PASSPHRASE=$SERVER_KEY_PASSPHRASE"
           } > .env
-
+      - name: Restore key
+        env:
+          SERVER_PRIV_B64: ${{ secrets.SERVER_PRIV_B64 }}
+          TEST_PRIV_64: ${{ secrets.TEST_PRIV_64 }}
+        run: |
+          mkdir -p server/keys
+          printf '%s' "$SERVER_PRIV_B64" | base64 -d > server/keys/server_priv.asc
+          printf '%s' "$TEST_PRIV_64" | base64 -d > server/keys/test_group_priv.asc
+          
       - name: Run tests
         run: |
           docker compose up --build \
