@@ -911,7 +911,7 @@ def create_app():
                 pdf=str(file_path),
                 secret=link_token,
                 key=link_token,
-                method="HMAC-Signed",
+                method="HMAC-Text-Render",
                 position=None
             )
         except Exception as e:
@@ -937,7 +937,7 @@ def create_app():
                         "link": link_token,
                         "intended_for": identity,
                         "secret": link_token,
-                        "method": "HMAC-Signed",
+                        "method": "HMAC-Text-Render",
                         "position": "",
                         "path": str(dest_path),
                     },)
