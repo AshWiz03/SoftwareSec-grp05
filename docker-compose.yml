@@ -43,7 +43,7 @@ services:
       - ./unit_test_results:/app/unit_test_results
     restart: "no"
   db:
-    image: mariadb:11.4
+    image: mariadb:11.4@sha256:80494b9810694179889f7281ec44ca928241df577159c0356a1070e2e94616a1
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
@@ -63,7 +63,7 @@ services:
     restart: unless-stopped
 
   phpmyadmin:
-    image: phpmyadmin:5.2
+    image: phpmyadmin:5.2@sha256:3a8a8d6b5289091f959ba0293f21163b3a2fc5741991a53de70b3497fe8d31db
     environment:
       - PMA_HOST=db
       - PMA_PORT=3306

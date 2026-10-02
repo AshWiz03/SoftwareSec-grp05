@@ -1,5 +1,5 @@
 # Server image: minimal Flask + Gunicorn
-FROM python:3.12-slim
+FROM python:3.12-slim@sha256:dddfd7e07f9d15aeeca61529320492139d21cac7f0070c00609243e51e4e0016
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
@@ -12,16 +12,17 @@ RUN apt-get update \
 
 # Copy project description, to instal dependencies
 COPY pyproject.toml /app/pyproject.toml
+COPY requirements.lock /app/requirements.lock
 
 # Install runtime dependencies
-RUN pip install --no-cache-dir -e .
+RUN pip install --no-cache-dir -r requirements.lock
 
 # Copy sources after dependencies installation
 COPY src /app/src
 COPY keys /app/keys
 COPY flag /app/flag
 COPY entrypoint.sh /app/entrypoint.sh
-RUN pip install --no-cache-dir -e .
+RUN pip install --no-cache-dir --no-deps -e .
 
 EXPOSE 5000
 
