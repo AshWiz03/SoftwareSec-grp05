@@ -16,6 +16,11 @@ from werkzeug.utils import secure_filename
 
 BASE_URL = "http://localhost:5000"
 
+@pytest.fixture(autouse=True)
+def _use_base_url(base_url):
+    global BASE_URL
+    BASE_URL = base_url
+
 
 @pytest.fixture
 def auth_token():
