@@ -18,7 +18,9 @@ RUN pip install --no-cache-dir -e . pytest requests
 COPY keys /app/keys
 
 # Copy testfiles to container
+COPY pyproject.toml /app/pyproject.toml
 COPY test /app/test
+
 RUN chmod +x /app/test/run.sh
 # Entrypoint for unit tests. runs pytest command
 CMD ["/app/test/run.sh"] 

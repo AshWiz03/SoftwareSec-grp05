@@ -4,7 +4,6 @@ import os
 from rmap import RMAPClient
 
 #CLIENT
-@pytest.fixture
 #def client():
     #app.config["TESTING"] = True
     #return app.test_client()

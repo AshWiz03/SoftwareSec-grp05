@@ -22,6 +22,7 @@ dev = [
 addopts = "-q"
 testpaths = ["test/"]
 python_files = ["test_*.py"]
+markers = ["manual: not run automatically, invoket explicitly"]
 
 [project.scripts]
 pdfwm = "watermarking_cli:main"                 # now you can run `pdfwm methods`
