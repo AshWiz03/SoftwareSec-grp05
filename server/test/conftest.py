@@ -25,41 +25,58 @@ def test_notifier(request):
     # Runs after test finishes
     print(f"[FINISHED] {request.node.name}")
 
+#Creates a throwaway user and returns its credentials
 @pytest.fixture
-def created_link(base_url):
-    # Create a throwaway user
+def created_user(base_url):
     run_id = uuid.uuid4().hex[:8]
     creds = {
         "email": f"test_{run_id}@example.com",
         "login": f"test_{run_id}",
-        "password": "TestPassword123!", 
+        "password": "TestPassword123!",
+        "run_id": run_id,
     }
-    respCreateUser = requests.post(f"{base_url}/api/create-user", json=creds)
-    assert respCreateUser.status_code == 201, respCreateUser.text
+    resp = requests.post(
+        f"{base_url}/api/create-user",
+        json={k: creds[k] for k in ("email", "login", "password")},
+    )
+    assert resp.status_code == 201, resp.text
+    return creds
 
-    #Log in
-    respLogin = requests.post(f"{base_url}/api/login",
-                       json={"email": creds["email"], "password": creds["password"]})
-    assert respLogin.status_code == 200, respLogin.text
-    headers = {"Authorization": f"Bearer {respLogin.json()['token']}"}
+#Logs in as the throwaway user and returns the Authorization header
+@pytest.fixture
+def auth_headers(base_url, created_user):
+    resp = requests.post(
+        f"{base_url}/api/login",
+        json={"email": created_user["email"], "password": created_user["password"]},
+    )
+    assert resp.status_code == 200, resp.text
+    return {"Authorization": f"Bearer {resp.json()['token']}"}
 
-    #Upload a PDF
+#Uploads a minimal PDF and returns its document id
+@pytest.fixture
+def uploaded_document(base_url, auth_headers):
     minimal_pdf = _build_minimal_pdf()
     files = {"file": ("test.pdf", io.BytesIO(minimal_pdf), "application/pdf")}
-    respUpload = requests.post(f"{base_url}/api/upload-document", headers=headers, files=files)
-    assert respUpload.status_code == 201, respUpload.text
-    doc_id = respUpload.json()["id"]
+    resp = requests.post(f"{base_url}/api/upload-document", headers=auth_headers, files=files)
+    assert resp.status_code == 201, resp.text
+    return resp.json()["id"]
 
-    #Create a watermark to get a real, issued link
+#Creates a watermarked version and returns its issued link
+@pytest.fixture
+def created_link(base_url, auth_headers, created_user, uploaded_document):
     payload = {
-        "method": "HMAC-Text-Render",  
-        "intended_for": f"test-recipient-{run_id}",
+        "method": "HMAC-Text-Render",
+        "intended_for": f"test-recipient-{created_user['run_id']}",
         "secret": "test-secret",
         "key": "test-key",
     }
-    respWatermark = requests.post(f"{base_url}/api/create-watermark/{doc_id}", headers=headers, json=payload)
-    assert respWatermark.status_code == 201, respWatermark.text
-    return respWatermark.json()["link"]
+    resp = requests.post(
+        f"{base_url}/api/create-watermark/{uploaded_document}",
+        headers=auth_headers,
+        json=payload,
+    )
+    assert resp.status_code == 201, resp.text
+    return resp.json()["link"]
 
 #BUILD A PDF ON DEMAND
 def _build_minimal_pdf() -> bytes:
