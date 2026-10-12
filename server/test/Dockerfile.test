@@ -13,12 +13,13 @@ COPY pyproject.toml /app/pyproject.toml
 RUN pip install --no-cache-dir -e .
 
 COPY src /app/src
-RUN pip install --no-cache-dir -e . pytest requests
-
 COPY keys /app/keys
+COPY setup.cfg /app/setup.cfg
+COPY src/validation.py /app/validation.py
 
+RUN pip install --no-cache-dir -e . pytest requests
+RUN pip install --no-cache-dir "mutmut>=2.4"
 # Copy testfiles to container
-COPY pyproject.toml /app/pyproject.toml
 COPY test /app/test
 
 RUN chmod +x /app/test/run.sh

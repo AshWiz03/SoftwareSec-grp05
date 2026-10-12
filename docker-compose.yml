@@ -41,6 +41,7 @@ services:
         condition: service_healthy
     volumes:
       - ./unit_test_results:/app/unit_test_results
+      - ./mutmut-mutants:/app/mutants
     restart: "no"
   db:
     image: mariadb:11.4
