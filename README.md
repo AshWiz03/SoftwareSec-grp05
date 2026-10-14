@@ -41,6 +41,22 @@ python -m pip install -e ".[dev]"
 # Run the unit tests
 python -m pytest
 ```
+### Run mutation tests
+
+From the root of the directory:
+
+```bash
+cd ../server
+
+# Install mutmut
+pip install mutmut
+
+# Run mutation tests
+mutmut run
+
+# Show results
+mutmut results
+```
 
 ### Deploy
 

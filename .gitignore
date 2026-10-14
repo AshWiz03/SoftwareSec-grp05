@@ -214,3 +214,4 @@ server/gen.py
 server/keys/test_group_priv.asc
 unit_test_results/
 mutmut-mutants/
+mutation_test_results/

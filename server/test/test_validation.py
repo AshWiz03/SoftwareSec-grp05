@@ -1,5 +1,5 @@
 import io
-from src.validation import (
+from validation import (
     validate_login,
     validate_password,
     validate_email,
