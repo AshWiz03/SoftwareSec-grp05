@@ -42,6 +42,29 @@ services:
     volumes:
       - ./unit_test_results:/app/unit_test_results
     restart: "no"
+  
+  mutation:
+    build:
+      context: .
+      dockerfile: mutation/Dockerfile.mutation
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=tatou
+      - DB_USER=${MARIADB_USER}
+      - DB_PASSWORD=${MARIADB_PASSWORD}
+      - SECRET_KEY=${SECRET_KEY}
+      - SERVER_KEY_PASSPHRASE=${SERVER_KEY_PASSPHRASE}
+      - STORAGE_DIR=/app/storage
+      - PYTHONPATH=/app
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./mutation_test_results:/app/mutation_test_results
+      - user-files:/app/storage
+    restart: "no"
+
   db:
     image: mariadb:11.4
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci

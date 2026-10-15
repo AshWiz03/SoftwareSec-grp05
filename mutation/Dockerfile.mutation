@@ -1,0 +1,24 @@
+FROM python:3.12-slim
+WORKDIR /app
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends git ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY server/pyproject.toml /app/pyproject.toml
+RUN pip install --no-cache-dir -e .
+RUN pip install --no-cache-dir pytest mutmut
+
+COPY server/src/ /app/
+
+COPY server/keys/ /app/keys/
+COPY server/keys/ /keys/
+
+COPY mutation/test /app/test
+COPY mutation/setup.cfg /app/setup.cfg
+COPY mutation/init.sh /app/init.sh
+
+
+RUN chmod +x /app/init.sh
+
+CMD ["/app/init.sh"]

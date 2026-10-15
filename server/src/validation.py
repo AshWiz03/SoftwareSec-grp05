@@ -4,6 +4,7 @@
 from __future__ import annotations
  
 import re
+import unicodedata
  
 # Username 
  
@@ -61,7 +62,7 @@ def validate_password(value: object) -> str | None:
         return f"Password must be at least {PASSWORD_MIN_LENGTH} characters."
     if len(value) > PASSWORD_MAX_LENGTH:
         return f"Password must be at most {PASSWORD_MAX_LENGTH} characters."
-    if any(ord(c) < 32 or ord(c) == 127 for c in value):
+    if any(unicodedata.category(c) == "Cc" for c in value):
         return "Password may not contain control characters."
     return None
 
