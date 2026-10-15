@@ -1,4 +1,5 @@
 import io
+import pytest
 from validation import (
     validate_login,
     validate_password,
@@ -27,6 +28,19 @@ def test_validate_password_valid():
 
 def test_validate_password_too_short():
     assert validate_password("lko") is not None
+
+CONTROL_MSG = "Password may not contain control characters." #Should hit the correct condition
+@pytest.mark.parametrize("char", ["\x00", "\t", "\n", "\r", "\x1f", "\x7f"])
+def test_validate_password_reject_ascii_control(char):
+    assert validate_password("TestPassword" + char) == CONTROL_MSG
+
+@pytest.mark.parametrize("char", ["\x80", "\x85", "\x9f"])
+def test_validate_password_rejects_c1_control_chars(char):
+    assert validate_password("TestPassword" + char) == CONTROL_MSG
+#latin 1 punctuation and symbols
+@pytest.mark.parametrize("char", [" ", "~", "å", "ä", "ö", "£", "§", "©"])
+def test_validate_password_allows_printable_chars(char):
+    assert validate_password("TestPassword" + char) is None
 
 #Validation email input (For create-user)
 def test_validate_email_valid():
