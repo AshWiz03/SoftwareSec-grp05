@@ -13,7 +13,7 @@ COPY pyproject.toml /app/pyproject.toml
 RUN pip install --no-cache-dir -e .
 
 COPY src /app/src
-RUN pip install --no-cache-dir -e . pytest requests
+RUN pip install --no-cache-dir -e . pytest requests hypothesis
 
 COPY keys /app/keys
 
