@@ -1,0 +1,1693 @@
+=== validation.x_validate_login__mutmut_2 ===
+# validation.x_validate_login__mutmut_2: survived
+--- validation.py
++++ validation.py
+@@ -4,7 +4,7 @@
+  
+ def validate_login(value: object) -> str | None:
+     if not isinstance(value, str):
+-        return "Username must be text."
++        return "XXUsername must be text.XX"
+     if len(value) < USERNAME_MIN_LENGTH:
+         return f"Username must be at least {USERNAME_MIN_LENGTH} characters."
+     if len(value) > USERNAME_MAX_LENGTH:
+
+=== validation.x_validate_login__mutmut_3 ===
+# validation.x_validate_login__mutmut_3: survived
+--- validation.py
++++ validation.py
+@@ -4,7 +4,7 @@
+  
+ def validate_login(value: object) -> str | None:
+     if not isinstance(value, str):
+-        return "Username must be text."
++        return "username must be text."
+     if len(value) < USERNAME_MIN_LENGTH:
+         return f"Username must be at least {USERNAME_MIN_LENGTH} characters."
+     if len(value) > USERNAME_MAX_LENGTH:
+
+=== validation.x_validate_login__mutmut_4 ===
+# validation.x_validate_login__mutmut_4: survived
+--- validation.py
++++ validation.py
+@@ -4,7 +4,7 @@
+  
+ def validate_login(value: object) -> str | None:
+     if not isinstance(value, str):
+-        return "Username must be text."
++        return "USERNAME MUST BE TEXT."
+     if len(value) < USERNAME_MIN_LENGTH:
+         return f"Username must be at least {USERNAME_MIN_LENGTH} characters."
+     if len(value) > USERNAME_MAX_LENGTH:
+
+=== validation.x_validate_login__mutmut_9 ===
+# validation.x_validate_login__mutmut_9: survived
+--- validation.py
++++ validation.py
+@@ -10,7 +10,7 @@
+     if len(value) > USERNAME_MAX_LENGTH:
+         return f"Username must be at most {USERNAME_MAX_LENGTH} characters."
+     if not _USERNAME_CHARSET.match(value):
+-        return "Username may only contain letters, numbers, hyphens and underscores."
++        return "XXUsername may only contain letters, numbers, hyphens and underscores.XX"
+     if not _USERNAME_FULL.match(value):
+         return "Username must start and end with a letter or number."
+     if value.lower() in RESERVED_USERNAMES:
+
+=== validation.x_validate_login__mutmut_10 ===
+# validation.x_validate_login__mutmut_10: survived
+--- validation.py
++++ validation.py
+@@ -10,7 +10,7 @@
+     if len(value) > USERNAME_MAX_LENGTH:
+         return f"Username must be at most {USERNAME_MAX_LENGTH} characters."
+     if not _USERNAME_CHARSET.match(value):
+-        return "Username may only contain letters, numbers, hyphens and underscores."
++        return "username may only contain letters, numbers, hyphens and underscores."
+     if not _USERNAME_FULL.match(value):
+         return "Username must start and end with a letter or number."
+     if value.lower() in RESERVED_USERNAMES:
+
+=== validation.x_validate_login__mutmut_11 ===
+# validation.x_validate_login__mutmut_11: survived
+--- validation.py
++++ validation.py
+@@ -10,7 +10,7 @@
+     if len(value) > USERNAME_MAX_LENGTH:
+         return f"Username must be at most {USERNAME_MAX_LENGTH} characters."
+     if not _USERNAME_CHARSET.match(value):
+-        return "Username may only contain letters, numbers, hyphens and underscores."
++        return "USERNAME MAY ONLY CONTAIN LETTERS, NUMBERS, HYPHENS AND UNDERSCORES."
+     if not _USERNAME_FULL.match(value):
+         return "Username must start and end with a letter or number."
+     if value.lower() in RESERVED_USERNAMES:
+
+=== validation.x_validate_login__mutmut_14 ===
+# validation.x_validate_login__mutmut_14: survived
+--- validation.py
++++ validation.py
+@@ -12,7 +12,7 @@
+     if not _USERNAME_CHARSET.match(value):
+         return "Username may only contain letters, numbers, hyphens and underscores."
+     if not _USERNAME_FULL.match(value):
+-        return "Username must start and end with a letter or number."
++        return "XXUsername must start and end with a letter or number.XX"
+     if value.lower() in RESERVED_USERNAMES:
+         return "That username is reserved."
+     return None
+
+=== validation.x_validate_login__mutmut_15 ===
+# validation.x_validate_login__mutmut_15: survived
+--- validation.py
++++ validation.py
+@@ -12,7 +12,7 @@
+     if not _USERNAME_CHARSET.match(value):
+         return "Username may only contain letters, numbers, hyphens and underscores."
+     if not _USERNAME_FULL.match(value):
+-        return "Username must start and end with a letter or number."
++        return "username must start and end with a letter or number."
+     if value.lower() in RESERVED_USERNAMES:
+         return "That username is reserved."
+     return None
+
+=== validation.x_validate_login__mutmut_16 ===
+# validation.x_validate_login__mutmut_16: survived
+--- validation.py
++++ validation.py
+@@ -12,7 +12,7 @@
+     if not _USERNAME_CHARSET.match(value):
+         return "Username may only contain letters, numbers, hyphens and underscores."
+     if not _USERNAME_FULL.match(value):
+-        return "Username must start and end with a letter or number."
++        return "USERNAME MUST START AND END WITH A LETTER OR NUMBER."
+     if value.lower() in RESERVED_USERNAMES:
+         return "That username is reserved."
+     return None
+
+=== validation.x_validate_login__mutmut_19 ===
+# validation.x_validate_login__mutmut_19: survived
+--- validation.py
++++ validation.py
+@@ -14,5 +14,5 @@
+     if not _USERNAME_FULL.match(value):
+         return "Username must start and end with a letter or number."
+     if value.lower() in RESERVED_USERNAMES:
+-        return "That username is reserved."
++        return "XXThat username is reserved.XX"
+     return None
+
+=== validation.x_validate_login__mutmut_20 ===
+# validation.x_validate_login__mutmut_20: survived
+--- validation.py
++++ validation.py
+@@ -14,5 +14,5 @@
+     if not _USERNAME_FULL.match(value):
+         return "Username must start and end with a letter or number."
+     if value.lower() in RESERVED_USERNAMES:
+-        return "That username is reserved."
++        return "that username is reserved."
+     return None
+
+=== validation.x_validate_login__mutmut_21 ===
+# validation.x_validate_login__mutmut_21: survived
+--- validation.py
++++ validation.py
+@@ -14,5 +14,5 @@
+     if not _USERNAME_FULL.match(value):
+         return "Username must start and end with a letter or number."
+     if value.lower() in RESERVED_USERNAMES:
+-        return "That username is reserved."
++        return "THAT USERNAME IS RESERVED."
+     return None
+
+=== validation.x_validate_password__mutmut_2 ===
+# validation.x_validate_password__mutmut_2: survived
+--- validation.py
++++ validation.py
+@@ -1,6 +1,6 @@
+ def validate_password(value: object) -> str | None:
+     if not isinstance(value, str):
+-        return "Password must be text."
++        return "XXPassword must be text.XX"
+     # Length is counted first, before any other work touches the value.
+     if len(value) < PASSWORD_MIN_LENGTH:
+         return f"Password must be at least {PASSWORD_MIN_LENGTH} characters."
+
+=== validation.x_validate_password__mutmut_3 ===
+# validation.x_validate_password__mutmut_3: survived
+--- validation.py
++++ validation.py
+@@ -1,6 +1,6 @@
+ def validate_password(value: object) -> str | None:
+     if not isinstance(value, str):
+-        return "Password must be text."
++        return "password must be text."
+     # Length is counted first, before any other work touches the value.
+     if len(value) < PASSWORD_MIN_LENGTH:
+         return f"Password must be at least {PASSWORD_MIN_LENGTH} characters."
+
+=== validation.x_validate_password__mutmut_4 ===
+# validation.x_validate_password__mutmut_4: survived
+--- validation.py
++++ validation.py
+@@ -1,6 +1,6 @@
+ def validate_password(value: object) -> str | None:
+     if not isinstance(value, str):
+-        return "Password must be text."
++        return "PASSWORD MUST BE TEXT."
+     # Length is counted first, before any other work touches the value.
+     if len(value) < PASSWORD_MIN_LENGTH:
+         return f"Password must be at least {PASSWORD_MIN_LENGTH} characters."
+
+=== validation.x_validate_password__mutmut_6 ===
+# validation.x_validate_password__mutmut_6: survived
+--- validation.py
++++ validation.py
+@@ -4,7 +4,7 @@
+     # Length is counted first, before any other work touches the value.
+     if len(value) < PASSWORD_MIN_LENGTH:
+         return f"Password must be at least {PASSWORD_MIN_LENGTH} characters."
+-    if len(value) > PASSWORD_MAX_LENGTH:
++    if len(value) >= PASSWORD_MAX_LENGTH:
+         return f"Password must be at most {PASSWORD_MAX_LENGTH} characters."
+     if any(unicodedata.category(c) == "Cc" for c in value):
+         return "Password may not contain control characters."
+
+=== validation.x_validate_email__mutmut_2 ===
+# validation.x_validate_email__mutmut_2: survived
+--- validation.py
++++ validation.py
+@@ -1,6 +1,6 @@
+ def validate_email(value: object) -> str | None:
+     if not isinstance(value, str):
+-        return "Email must be text."
++        return "XXEmail must be text.XX"
+     if not value:
+         return "Email is required."
+     if len(value) > EMAIL_MAX_LENGTH:
+
+=== validation.x_validate_email__mutmut_3 ===
+# validation.x_validate_email__mutmut_3: survived
+--- validation.py
++++ validation.py
+@@ -1,6 +1,6 @@
+ def validate_email(value: object) -> str | None:
+     if not isinstance(value, str):
+-        return "Email must be text."
++        return "email must be text."
+     if not value:
+         return "Email is required."
+     if len(value) > EMAIL_MAX_LENGTH:
+
+=== validation.x_validate_email__mutmut_4 ===
+# validation.x_validate_email__mutmut_4: survived
+--- validation.py
++++ validation.py
+@@ -1,6 +1,6 @@
+ def validate_email(value: object) -> str | None:
+     if not isinstance(value, str):
+-        return "Email must be text."
++        return "EMAIL MUST BE TEXT."
+     if not value:
+         return "Email is required."
+     if len(value) > EMAIL_MAX_LENGTH:
+
+=== validation.x_validate_email__mutmut_6 ===
+# validation.x_validate_email__mutmut_6: survived
+--- validation.py
++++ validation.py
+@@ -2,7 +2,7 @@
+     if not isinstance(value, str):
+         return "Email must be text."
+     if not value:
+-        return "Email is required."
++        return "XXEmail is required.XX"
+     if len(value) > EMAIL_MAX_LENGTH:
+         return f"Email must be at most {EMAIL_MAX_LENGTH} characters."
+     if not _EMAIL.match(value):
+
+=== validation.x_validate_email__mutmut_7 ===
+# validation.x_validate_email__mutmut_7: survived
+--- validation.py
++++ validation.py
+@@ -2,7 +2,7 @@
+     if not isinstance(value, str):
+         return "Email must be text."
+     if not value:
+-        return "Email is required."
++        return "email is required."
+     if len(value) > EMAIL_MAX_LENGTH:
+         return f"Email must be at most {EMAIL_MAX_LENGTH} characters."
+     if not _EMAIL.match(value):
+
+=== validation.x_validate_email__mutmut_8 ===
+# validation.x_validate_email__mutmut_8: survived
+--- validation.py
++++ validation.py
+@@ -2,7 +2,7 @@
+     if not isinstance(value, str):
+         return "Email must be text."
+     if not value:
+-        return "Email is required."
++        return "EMAIL IS REQUIRED."
+     if len(value) > EMAIL_MAX_LENGTH:
+         return f"Email must be at most {EMAIL_MAX_LENGTH} characters."
+     if not _EMAIL.match(value):
+
+=== validation.x_validate_email__mutmut_9 ===
+# validation.x_validate_email__mutmut_9: survived
+--- validation.py
++++ validation.py
+@@ -3,7 +3,7 @@
+         return "Email must be text."
+     if not value:
+         return "Email is required."
+-    if len(value) > EMAIL_MAX_LENGTH:
++    if len(value) >= EMAIL_MAX_LENGTH:
+         return f"Email must be at most {EMAIL_MAX_LENGTH} characters."
+     if not _EMAIL.match(value):
+         return "Enter a valid email address."
+
+=== validation.x_sanitize_filename__mutmut_1 ===
+# validation.x_sanitize_filename__mutmut_1: survived
+--- validation.py
++++ validation.py
+@@ -1,7 +1,7 @@
+ def sanitize_filename(raw_name: object) -> str | None:
+     #Return a filesystem- and shell-safe .pdf filename, or None if unsafe.
+     
+-    if not isinstance(raw_name, str) or not raw_name:
++    if not isinstance(raw_name, str) and not raw_name:
+         return None
+ 
+     # Drop any path component / NUL bytes a client tried to sneak in.
+
+=== validation.x_sanitize_filename__mutmut_9 ===
+# validation.x_sanitize_filename__mutmut_9: survived
+--- validation.py
++++ validation.py
+@@ -5,7 +5,7 @@
+         return None
+ 
+     # Drop any path component / NUL bytes a client tried to sneak in.
+-    name = raw_name.replace("\\", "/").split("/")[-1].replace("\x00", "")
++    name = raw_name.replace("\\", "/").split(None)[-1].replace("\x00", "")
+ 
+     if len(name) > UPLOAD_FILENAME_MAX_LENGTH:
+         return None
+
+=== validation.x_sanitize_filename__mutmut_14 ===
+# validation.x_sanitize_filename__mutmut_14: survived
+--- validation.py
++++ validation.py
+@@ -5,7 +5,7 @@
+         return None
+ 
+     # Drop any path component / NUL bytes a client tried to sneak in.
+-    name = raw_name.replace("\\", "/").split("/")[-1].replace("\x00", "")
++    name = raw_name.replace("XX\\XX", "/").split("/")[-1].replace("\x00", "")
+ 
+     if len(name) > UPLOAD_FILENAME_MAX_LENGTH:
+         return None
+
+=== validation.x_sanitize_filename__mutmut_15 ===
+# validation.x_sanitize_filename__mutmut_15: survived
+--- validation.py
++++ validation.py
+@@ -5,7 +5,7 @@
+         return None
+ 
+     # Drop any path component / NUL bytes a client tried to sneak in.
+-    name = raw_name.replace("\\", "/").split("/")[-1].replace("\x00", "")
++    name = raw_name.replace("\\", "XX/XX").split("/")[-1].replace("\x00", "")
+ 
+     if len(name) > UPLOAD_FILENAME_MAX_LENGTH:
+         return None
+
+=== validation.x_sanitize_filename__mutmut_16 ===
+# validation.x_sanitize_filename__mutmut_16: survived
+--- validation.py
++++ validation.py
+@@ -5,7 +5,7 @@
+         return None
+ 
+     # Drop any path component / NUL bytes a client tried to sneak in.
+-    name = raw_name.replace("\\", "/").split("/")[-1].replace("\x00", "")
++    name = raw_name.replace("\\", "/").split("XX/XX")[-1].replace("\x00", "")
+ 
+     if len(name) > UPLOAD_FILENAME_MAX_LENGTH:
+         return None
+
+=== validation.x_sanitize_filename__mutmut_19 ===
+# validation.x_sanitize_filename__mutmut_19: survived
+--- validation.py
++++ validation.py
+@@ -5,7 +5,7 @@
+         return None
+ 
+     # Drop any path component / NUL bytes a client tried to sneak in.
+-    name = raw_name.replace("\\", "/").split("/")[-1].replace("\x00", "")
++    name = raw_name.replace("\\", "/").split("/")[-1].replace("XX\x00XX", "")
+ 
+     if len(name) > UPLOAD_FILENAME_MAX_LENGTH:
+         return None
+
+=== validation.x_sanitize_filename__mutmut_20 ===
+# validation.x_sanitize_filename__mutmut_20: survived
+--- validation.py
++++ validation.py
+@@ -5,7 +5,7 @@
+         return None
+ 
+     # Drop any path component / NUL bytes a client tried to sneak in.
+-    name = raw_name.replace("\\", "/").split("/")[-1].replace("\x00", "")
++    name = raw_name.replace("\\", "/").split("/")[-1].replace("\x00", "XXXX")
+ 
+     if len(name) > UPLOAD_FILENAME_MAX_LENGTH:
+         return None
+
+=== validation.x_is_valid_pdf_size__mutmut_5 ===
+# validation.x_is_valid_pdf_size__mutmut_5: survived
+--- validation.py
++++ validation.py
+@@ -1,6 +1,6 @@
+ #CHECK FILESIZE, return true if lower than 50MB, else false
+ def is_valid_pdf_size(fileobj) -> bool:
+-    fileobj.seek(0, 2)
++    fileobj.seek(1, 2)
+     size = fileobj.tell()
+     fileobj.seek(0)     
+     return size <= MAX_FILE_SIZE_BYTES
+
+=== validation.x_is_valid_pdf_size__mutmut_10 ===
+# validation.x_is_valid_pdf_size__mutmut_10: survived
+--- validation.py
++++ validation.py
+@@ -3,4 +3,4 @@
+     fileobj.seek(0, 2)
+     size = fileobj.tell()
+     fileobj.seek(0)     
+-    return size <= MAX_FILE_SIZE_BYTES
++    return size < MAX_FILE_SIZE_BYTES
+
+=== server.x_create_app__mutmut_8 ===
+# server.x_create_app__mutmut_8: survived
+--- server.py
++++ server.py
+@@ -6,7 +6,7 @@
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY")
+     if not secret_key:
+-        raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
++        raise RuntimeError(None)
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+
+=== server.x_create_app__mutmut_9 ===
+# server.x_create_app__mutmut_9: survived
+--- server.py
++++ server.py
+@@ -6,7 +6,7 @@
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY")
+     if not secret_key:
+-        raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
++        raise RuntimeError("XXSECRET_KEY environment variable must be set — refusing to start with insecure defaultXX")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+
+=== server.x_create_app__mutmut_10 ===
+# server.x_create_app__mutmut_10: survived
+--- server.py
++++ server.py
+@@ -6,7 +6,7 @@
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY")
+     if not secret_key:
+-        raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
++        raise RuntimeError("secret_key environment variable must be set — refusing to start with insecure default")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+
+=== server.x_create_app__mutmut_11 ===
+# server.x_create_app__mutmut_11: survived
+--- server.py
++++ server.py
+@@ -6,7 +6,7 @@
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY")
+     if not secret_key:
+-        raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
++        raise RuntimeError("SECRET_KEY ENVIRONMENT VARIABLE MUST BE SET — REFUSING TO START WITH INSECURE DEFAULT")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+
+=== server.x_create_app__mutmut_20 ===
+# server.x_create_app__mutmut_20: survived
+--- server.py
++++ server.py
+@@ -8,7 +8,7 @@
+     if not secret_key:
+         raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
+     app.config["SECRET_KEY"] = secret_key
+-    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
++    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", None)).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+
+=== server.x_create_app__mutmut_22 ===
+# server.x_create_app__mutmut_22: survived
+--- server.py
++++ server.py
+@@ -8,7 +8,7 @@
+     if not secret_key:
+         raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
+     app.config["SECRET_KEY"] = secret_key
+-    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
++    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", )).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+
+=== server.x_create_app__mutmut_23 ===
+# server.x_create_app__mutmut_23: survived
+--- server.py
++++ server.py
+@@ -8,7 +8,7 @@
+     if not secret_key:
+         raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
+     app.config["SECRET_KEY"] = secret_key
+-    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
++    app.config["STORAGE_DIR"] = Path(os.environ.get("XXSTORAGE_DIRXX", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+
+=== server.x_create_app__mutmut_24 ===
+# server.x_create_app__mutmut_24: survived
+--- server.py
++++ server.py
+@@ -8,7 +8,7 @@
+     if not secret_key:
+         raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
+     app.config["SECRET_KEY"] = secret_key
+-    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
++    app.config["STORAGE_DIR"] = Path(os.environ.get("storage_dir", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+
+=== server.x_create_app__mutmut_25 ===
+# server.x_create_app__mutmut_25: survived
+--- server.py
++++ server.py
+@@ -8,7 +8,7 @@
+     if not secret_key:
+         raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
+     app.config["SECRET_KEY"] = secret_key
+-    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
++    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "XX./storageXX")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+
+=== server.x_create_app__mutmut_26 ===
+# server.x_create_app__mutmut_26: survived
+--- server.py
++++ server.py
+@@ -8,7 +8,7 @@
+     if not secret_key:
+         raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
+     app.config["SECRET_KEY"] = secret_key
+-    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
++    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./STORAGE")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+
+=== server.x_create_app__mutmut_27 ===
+# server.x_create_app__mutmut_27: survived
+--- server.py
++++ server.py
+@@ -9,7 +9,7 @@
+         raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+-    app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
++    app.config["TOKEN_TTL_SECONDS"] = None
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+
+=== server.x_create_app__mutmut_35 ===
+# server.x_create_app__mutmut_35: survived
+--- server.py
++++ server.py
+@@ -9,7 +9,7 @@
+         raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+-    app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
++    app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("XXTOKEN_TTL_SECONDSXX", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+
+=== server.x_create_app__mutmut_36 ===
+# server.x_create_app__mutmut_36: survived
+--- server.py
++++ server.py
+@@ -9,7 +9,7 @@
+         raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+-    app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
++    app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("token_ttl_seconds", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+
+=== server.x_create_app__mutmut_42 ===
+# server.x_create_app__mutmut_42: survived
+--- server.py
++++ server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("DB_USER", None)
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+
+=== server.x_create_app__mutmut_44 ===
+# server.x_create_app__mutmut_44: survived
+--- server.py
++++ server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("DB_USER", )
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+
+=== server.x_create_app__mutmut_47 ===
+# server.x_create_app__mutmut_47: survived
+--- server.py
++++ server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("DB_USER", "XXtatouXX")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+
+=== server.x_create_app__mutmut_48 ===
+# server.x_create_app__mutmut_48: survived
+--- server.py
++++ server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("DB_USER", "TATOU")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+
+=== server.x_create_app__mutmut_53 ===
+# server.x_create_app__mutmut_53: survived
+--- server.py
++++ server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", None)
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+
+=== server.x_create_app__mutmut_55 ===
+# server.x_create_app__mutmut_55: survived
+--- server.py
++++ server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", )
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+
+=== server.x_create_app__mutmut_58 ===
+# server.x_create_app__mutmut_58: survived
+--- server.py
++++ server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "XXtatouXX")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+
+=== server.x_create_app__mutmut_59 ===
+# server.x_create_app__mutmut_59: survived
+--- server.py
++++ server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "TATOU")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+
+=== server.x_create_app__mutmut_64 ===
+# server.x_create_app__mutmut_64: survived
+--- server.py
++++ server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("DB_HOST", None)
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+
+=== server.x_create_app__mutmut_66 ===
+# server.x_create_app__mutmut_66: survived
+--- server.py
++++ server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("DB_HOST", )
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+
+=== server.x_create_app__mutmut_67 ===
+# server.x_create_app__mutmut_67: survived
+--- server.py
++++ server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("XXDB_HOSTXX", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+
+=== server.x_create_app__mutmut_68 ===
+# server.x_create_app__mutmut_68: survived
+--- server.py
++++ server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("db_host", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+
+=== server.x_create_app__mutmut_69 ===
+# server.x_create_app__mutmut_69: survived
+--- server.py
++++ server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("DB_HOST", "XXdbXX")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+
+=== server.x_create_app__mutmut_70 ===
+# server.x_create_app__mutmut_70: survived
+--- server.py
++++ server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("DB_HOST", "DB")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+
+=== server.x_create_app__mutmut_76 ===
+# server.x_create_app__mutmut_76: survived
+--- server.py
++++ server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", None))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+
+=== server.x_create_app__mutmut_78 ===
+# server.x_create_app__mutmut_78: survived
+--- server.py
++++ server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", ))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+
+=== server.x_create_app__mutmut_79 ===
+# server.x_create_app__mutmut_79: survived
+--- server.py
++++ server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = int(os.environ.get("XXDB_PORTXX", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+
+=== server.x_create_app__mutmut_80 ===
+# server.x_create_app__mutmut_80: survived
+--- server.py
++++ server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = int(os.environ.get("db_port", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+
+=== server.x_create_app__mutmut_81 ===
+# server.x_create_app__mutmut_81: survived
+--- server.py
++++ server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "XX3306XX"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+
+=== server.x_create_app__mutmut_86 ===
+# server.x_create_app__mutmut_86: survived
+--- server.py
++++ server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("DB_NAME", None)
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+
+=== server.x_create_app__mutmut_88 ===
+# server.x_create_app__mutmut_88: survived
+--- server.py
++++ server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("DB_NAME", )
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+
+=== server.x_create_app__mutmut_89 ===
+# server.x_create_app__mutmut_89: survived
+--- server.py
++++ server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("XXDB_NAMEXX", "tatou")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+
+=== server.x_create_app__mutmut_90 ===
+# server.x_create_app__mutmut_90: survived
+--- server.py
++++ server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("db_name", "tatou")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+
+=== server.x_create_app__mutmut_91 ===
+# server.x_create_app__mutmut_91: survived
+--- server.py
++++ server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("DB_NAME", "XXtatouXX")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+
+=== server.x_create_app__mutmut_92 ===
+# server.x_create_app__mutmut_92: survived
+--- server.py
++++ server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("DB_NAME", "TATOU")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+
+=== server.x_create_app__mutmut_93 ===
+# server.x_create_app__mutmut_93: survived
+--- server.py
++++ server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+-    app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
++    app.config["STORAGE_DIR"].mkdir(parents=None, exist_ok=True)
+ 
+     app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB
+     # --- RMAP Server setup ---
+
+=== server.x_create_app__mutmut_95 ===
+# server.x_create_app__mutmut_95: survived
+--- server.py
++++ server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+-    app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
++    app.config["STORAGE_DIR"].mkdir(exist_ok=True)
+ 
+     app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB
+     # --- RMAP Server setup ---
+
+=== server.x_create_app__mutmut_99 ===
+# server.x_create_app__mutmut_99: survived
+--- server.py
++++ server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+ 
+-    app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
++    app.config["STORAGE_DIR"].mkdir(parents=False, exist_ok=True)
+ 
+     app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB
+     # --- RMAP Server setup ---
+
+=== server.x_create_app__mutmut_101 ===
+# server.x_create_app__mutmut_101: survived
+--- server.py
++++ server.py
+@@ -19,7 +19,7 @@
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+-    app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB
++    app.config["MAX_CONTENT_LENGTH"] = None  # 50 MB
+     # --- RMAP Server setup ---
+     _rmap_server = None
+     def get_rmap_server():
+
+=== server.x_create_app__mutmut_102 ===
+# server.x_create_app__mutmut_102: survived
+--- server.py
++++ server.py
+@@ -19,7 +19,7 @@
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+-    app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB
++    app.config["XXMAX_CONTENT_LENGTHXX"] = 50 * 1024 * 1024  # 50 MB
+     # --- RMAP Server setup ---
+     _rmap_server = None
+     def get_rmap_server():
+
+=== server.x_create_app__mutmut_103 ===
+# server.x_create_app__mutmut_103: survived
+--- server.py
++++ server.py
+@@ -19,7 +19,7 @@
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+-    app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB
++    app.config["max_content_length"] = 50 * 1024 * 1024  # 50 MB
+     # --- RMAP Server setup ---
+     _rmap_server = None
+     def get_rmap_server():
+
+=== server.x_create_app__mutmut_106 ===
+# server.x_create_app__mutmut_106: survived
+--- server.py
++++ server.py
+@@ -19,7 +19,7 @@
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+-    app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB
++    app.config["MAX_CONTENT_LENGTH"] = 51 * 1024 * 1024  # 50 MB
+     # --- RMAP Server setup ---
+     _rmap_server = None
+     def get_rmap_server():
+
+=== server.x_create_app__mutmut_107 ===
+# server.x_create_app__mutmut_107: survived
+--- server.py
++++ server.py
+@@ -19,7 +19,7 @@
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+-    app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB
++    app.config["MAX_CONTENT_LENGTH"] = 50 * 1025 * 1024  # 50 MB
+     # --- RMAP Server setup ---
+     _rmap_server = None
+     def get_rmap_server():
+
+=== server.x_create_app__mutmut_108 ===
+# server.x_create_app__mutmut_108: survived
+--- server.py
++++ server.py
+@@ -19,7 +19,7 @@
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+ 
+-    app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50 MB
++    app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1025  # 50 MB
+     # --- RMAP Server setup ---
+     _rmap_server = None
+     def get_rmap_server():
+
+=== server.x_create_app__mutmut_124 ===
+# server.x_create_app__mutmut_124: survived
+--- server.py
++++ server.py
+@@ -30,8 +30,7 @@
+             server_public_key_path=str(keys_dir / "server_pub.asc"),
+             server_private_key_path=str(keys_dir / "server_priv.asc"),
+             passphrase=os.environ.get("SERVER_KEY_PASSPHRASE"),
+-            linkPrefix=os.environ.get("LINK_PREFIX", ""),
+-        )
++            )
+             _rmap_server.loadIdentities(str(keys_dir))
+         return _rmap_server
+ 
+
+=== server.x_create_app__mutmut_140 ===
+# server.x_create_app__mutmut_140: survived
+--- server.py
++++ server.py
+@@ -30,7 +30,7 @@
+             server_public_key_path=str(keys_dir / "server_pub.asc"),
+             server_private_key_path=str(keys_dir / "server_priv.asc"),
+             passphrase=os.environ.get("SERVER_KEY_PASSPHRASE"),
+-            linkPrefix=os.environ.get("LINK_PREFIX", ""),
++            linkPrefix=os.environ.get("XXLINK_PREFIXXX", ""),
+         )
+             _rmap_server.loadIdentities(str(keys_dir))
+         return _rmap_server
+
+=== server.x_create_app__mutmut_141 ===
+# server.x_create_app__mutmut_141: survived
+--- server.py
++++ server.py
+@@ -30,7 +30,7 @@
+             server_public_key_path=str(keys_dir / "server_pub.asc"),
+             server_private_key_path=str(keys_dir / "server_priv.asc"),
+             passphrase=os.environ.get("SERVER_KEY_PASSPHRASE"),
+-            linkPrefix=os.environ.get("LINK_PREFIX", ""),
++            linkPrefix=os.environ.get("link_prefix", ""),
+         )
+             _rmap_server.loadIdentities(str(keys_dir))
+         return _rmap_server
+
+=== server.x_create_app__mutmut_155 ===
+# server.x_create_app__mutmut_155: survived
+--- server.py
++++ server.py
+@@ -43,7 +43,7 @@
+         )
+ 
+     def get_engine():
+-        eng = app.config.get("_ENGINE")
++        eng = None
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+
+=== server.x_create_app__mutmut_156 ===
+# server.x_create_app__mutmut_156: survived
+--- server.py
++++ server.py
+@@ -43,7 +43,7 @@
+         )
+ 
+     def get_engine():
+-        eng = app.config.get("_ENGINE")
++        eng = app.config.get(None)
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+
+=== server.x_create_app__mutmut_157 ===
+# server.x_create_app__mutmut_157: survived
+--- server.py
++++ server.py
+@@ -43,7 +43,7 @@
+         )
+ 
+     def get_engine():
+-        eng = app.config.get("_ENGINE")
++        eng = app.config.get("XX_ENGINEXX")
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+
+=== server.x_create_app__mutmut_158 ===
+# server.x_create_app__mutmut_158: survived
+--- server.py
++++ server.py
+@@ -43,7 +43,7 @@
+         )
+ 
+     def get_engine():
+-        eng = app.config.get("_ENGINE")
++        eng = app.config.get("_engine")
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+
+=== server.x_create_app__mutmut_162 ===
+# server.x_create_app__mutmut_162: survived
+--- server.py
++++ server.py
+@@ -45,7 +45,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(db_url(), pool_pre_ping=None, future=True)
+             app.config["_ENGINE"] = eng
+         return eng
+ 
+
+=== server.x_create_app__mutmut_165 ===
+# server.x_create_app__mutmut_165: survived
+--- server.py
++++ server.py
+@@ -45,7 +45,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(db_url(), future=True)
+             app.config["_ENGINE"] = eng
+         return eng
+ 
+
+=== server.x_create_app__mutmut_166 ===
+# server.x_create_app__mutmut_166: survived
+--- server.py
++++ server.py
+@@ -45,7 +45,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(db_url(), pool_pre_ping=True, )
+             app.config["_ENGINE"] = eng
+         return eng
+ 
+
+=== server.x_create_app__mutmut_167 ===
+# server.x_create_app__mutmut_167: survived
+--- server.py
++++ server.py
+@@ -45,7 +45,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(db_url(), pool_pre_ping=False, future=True)
+             app.config["_ENGINE"] = eng
+         return eng
+ 
+
+=== server.x_create_app__mutmut_169 ===
+# server.x_create_app__mutmut_169: survived
+--- server.py
++++ server.py
+@@ -46,7 +46,7 @@
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+-            app.config["_ENGINE"] = eng
++            app.config["_ENGINE"] = None
+         return eng
+ 
+     # --- Helpers ---
+
+=== server.x_create_app__mutmut_170 ===
+# server.x_create_app__mutmut_170: survived
+--- server.py
++++ server.py
+@@ -46,7 +46,7 @@
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+-            app.config["_ENGINE"] = eng
++            app.config["XX_ENGINEXX"] = eng
+         return eng
+ 
+     # --- Helpers ---
+
+=== server.x_create_app__mutmut_171 ===
+# server.x_create_app__mutmut_171: survived
+--- server.py
++++ server.py
+@@ -46,7 +46,7 @@
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+-            app.config["_ENGINE"] = eng
++            app.config["_engine"] = eng
+         return eng
+ 
+     # --- Helpers ---
+
+=== server.x_create_app__mutmut_173 ===
+# server.x_create_app__mutmut_173: survived
+--- server.py
++++ server.py
+@@ -51,7 +51,7 @@
+ 
+     # --- Helpers ---
+     def _serializer():
+-        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
++        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt=None)
+ 
+     def _auth_error(msg: str, code: int = 401):
+         return jsonify({"error": msg}), code
+
+=== server.x_create_app__mutmut_175 ===
+# server.x_create_app__mutmut_175: survived
+--- server.py
++++ server.py
+@@ -51,7 +51,7 @@
+ 
+     # --- Helpers ---
+     def _serializer():
+-        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
++        return URLSafeTimedSerializer(app.config["SECRET_KEY"], )
+ 
+     def _auth_error(msg: str, code: int = 401):
+         return jsonify({"error": msg}), code
+
+=== server.x_create_app__mutmut_178 ===
+# server.x_create_app__mutmut_178: survived
+--- server.py
++++ server.py
+@@ -51,7 +51,7 @@
+ 
+     # --- Helpers ---
+     def _serializer():
+-        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
++        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="XXtatou-authXX")
+ 
+     def _auth_error(msg: str, code: int = 401):
+         return jsonify({"error": msg}), code
+
+=== server.x_create_app__mutmut_179 ===
+# server.x_create_app__mutmut_179: survived
+--- server.py
++++ server.py
+@@ -51,7 +51,7 @@
+ 
+     # --- Helpers ---
+     def _serializer():
+-        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
++        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="TATOU-AUTH")
+ 
+     def _auth_error(msg: str, code: int = 401):
+         return jsonify({"error": msg}), code
+
+=== server.x_create_app__mutmut_181 ===
+# server.x_create_app__mutmut_181: survived
+--- server.py
++++ server.py
+@@ -54,7 +54,7 @@
+         return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
+ 
+     def _auth_error(msg: str, code: int = 401):
+-        return jsonify({"error": msg}), code
++        return jsonify(None), code
+ 
+     def require_auth(f):
+         @wraps(f)
+
+=== server.x_create_app__mutmut_182 ===
+# server.x_create_app__mutmut_182: survived
+--- server.py
++++ server.py
+@@ -54,7 +54,7 @@
+         return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
+ 
+     def _auth_error(msg: str, code: int = 401):
+-        return jsonify({"error": msg}), code
++        return jsonify({"XXerrorXX": msg}), code
+ 
+     def require_auth(f):
+         @wraps(f)
+
+=== server.x_create_app__mutmut_183 ===
+# server.x_create_app__mutmut_183: survived
+--- server.py
++++ server.py
+@@ -54,7 +54,7 @@
+         return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
+ 
+     def _auth_error(msg: str, code: int = 401):
+-        return jsonify({"error": msg}), code
++        return jsonify({"ERROR": msg}), code
+ 
+     def require_auth(f):
+         @wraps(f)
+
+=== server.x_create_app__mutmut_190 ===
+# server.x_create_app__mutmut_190: survived
+--- server.py
++++ server.py
+@@ -76,7 +76,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+
+=== server.x_create_app__mutmut_193 ===
+# server.x_create_app__mutmut_193: survived
+--- server.py
++++ server.py
+@@ -76,7 +76,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: f.read(None), b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+
+=== server.x_create_app__mutmut_195 ===
+# server.x_create_app__mutmut_195: survived
+--- server.py
++++ server.py
+@@ -76,7 +76,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: f.read(1025 * 1024), b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+
+=== server.x_create_app__mutmut_196 ===
+# server.x_create_app__mutmut_196: survived
+--- server.py
++++ server.py
+@@ -76,7 +76,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: f.read(1024 * 1025), b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+
+=== server.x_create_app__mutmut_199 ===
+# server.x_create_app__mutmut_199: survived
+--- server.py
++++ server.py
+@@ -452,7 +452,7 @@
+     
+     # Helper: resolve path safely under STORAGE_DIR (handles absolute/relative)
+     def _safe_resolve_under_storage(p: str, storage_root: Path) -> Path:
+-        storage_root = storage_root.resolve()
++        storage_root = None
+         fp = Path(p)
+         if not fp.is_absolute():
+             fp = storage_root / fp
+
+=== server.x_create_app__mutmut_200 ===
+# server.x_create_app__mutmut_200: survived
+--- server.py
++++ server.py
+@@ -453,7 +453,7 @@
+     # Helper: resolve path safely under STORAGE_DIR (handles absolute/relative)
+     def _safe_resolve_under_storage(p: str, storage_root: Path) -> Path:
+         storage_root = storage_root.resolve()
+-        fp = Path(p)
++        fp = None
+         if not fp.is_absolute():
+             fp = storage_root / fp
+         fp = fp.resolve()
+
+=== server.x_create_app__mutmut_201 ===
+# server.x_create_app__mutmut_201: survived
+--- server.py
++++ server.py
+@@ -453,7 +453,7 @@
+     # Helper: resolve path safely under STORAGE_DIR (handles absolute/relative)
+     def _safe_resolve_under_storage(p: str, storage_root: Path) -> Path:
+         storage_root = storage_root.resolve()
+-        fp = Path(p)
++        fp = Path(None)
+         if not fp.is_absolute():
+             fp = storage_root / fp
+         fp = fp.resolve()
+
+=== server.x_create_app__mutmut_202 ===
+# server.x_create_app__mutmut_202: survived
+--- server.py
++++ server.py
+@@ -454,7 +454,7 @@
+     def _safe_resolve_under_storage(p: str, storage_root: Path) -> Path:
+         storage_root = storage_root.resolve()
+         fp = Path(p)
+-        if not fp.is_absolute():
++        if fp.is_absolute():
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+
+=== server.x_create_app__mutmut_203 ===
+# server.x_create_app__mutmut_203: survived
+--- server.py
++++ server.py
+@@ -455,7 +455,7 @@
+         storage_root = storage_root.resolve()
+         fp = Path(p)
+         if not fp.is_absolute():
+-            fp = storage_root / fp
++            fp = None
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+
+=== server.x_create_app__mutmut_204 ===
+# server.x_create_app__mutmut_204: survived
+--- server.py
++++ server.py
+@@ -455,7 +455,7 @@
+         storage_root = storage_root.resolve()
+         fp = Path(p)
+         if not fp.is_absolute():
+-            fp = storage_root / fp
++            fp = storage_root * fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+
+=== server.x_create_app__mutmut_205 ===
+# server.x_create_app__mutmut_205: survived
+--- server.py
++++ server.py
+@@ -456,7 +456,7 @@
+         fp = Path(p)
+         if not fp.is_absolute():
+             fp = storage_root / fp
+-        fp = fp.resolve()
++        fp = None
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+             if not fp.is_relative_to(storage_root):
+
+=== server.x_create_app__mutmut_206 ===
+# server.x_create_app__mutmut_206: survived
+--- server.py
++++ server.py
+@@ -458,7 +458,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr(None, "is_relative_to"):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+
+=== server.x_create_app__mutmut_207 ===
+# server.x_create_app__mutmut_207: survived
+--- server.py
++++ server.py
+@@ -458,7 +458,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr(fp, None):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+
+=== server.x_create_app__mutmut_208 ===
+# server.x_create_app__mutmut_208: survived
+--- server.py
++++ server.py
+@@ -458,7 +458,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr("is_relative_to"):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+
+=== server.x_create_app__mutmut_209 ===
+# server.x_create_app__mutmut_209: survived
+--- server.py
++++ server.py
+@@ -458,7 +458,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr(fp, ):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+
+=== server.x_create_app__mutmut_210 ===
+# server.x_create_app__mutmut_210: survived
+--- server.py
++++ server.py
+@@ -458,7 +458,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr(fp, "XXis_relative_toXX"):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+
+=== server.x_create_app__mutmut_211 ===
+# server.x_create_app__mutmut_211: survived
+--- server.py
++++ server.py
+@@ -458,7 +458,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr(fp, "IS_RELATIVE_TO"):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+
+=== server.x_create_app__mutmut_212 ===
+# server.x_create_app__mutmut_212: survived
+--- server.py
++++ server.py
+@@ -459,7 +459,7 @@
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+-            if not fp.is_relative_to(storage_root):
++            if fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+             try:
+
+=== server.x_create_app__mutmut_213 ===
+# server.x_create_app__mutmut_213: survived
+--- server.py
++++ server.py
+@@ -459,7 +459,7 @@
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+-            if not fp.is_relative_to(storage_root):
++            if not fp.is_relative_to(None):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+             try:
+
+=== server.x_create_app__mutmut_214 ===
+# server.x_create_app__mutmut_214: survived
+--- server.py
++++ server.py
+@@ -460,7 +460,7 @@
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+             if not fp.is_relative_to(storage_root):
+-                raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
++                raise RuntimeError(None)
+         else:
+             try:
+                 fp.relative_to(storage_root)
+
+=== server.x_create_app__mutmut_215 ===
+# server.x_create_app__mutmut_215: survived
+--- server.py
++++ server.py
+@@ -463,7 +463,7 @@
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+             try:
+-                fp.relative_to(storage_root)
++                fp.relative_to(None)
+             except ValueError:
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         return fp
+
+=== server.x_create_app__mutmut_216 ===
+# server.x_create_app__mutmut_216: survived
+--- server.py
++++ server.py
+@@ -465,7 +465,7 @@
+             try:
+                 fp.relative_to(storage_root)
+             except ValueError:
+-                raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
++                raise RuntimeError(None)
+         return fp
+ 
+     # DELETE /api/delete-document  (and variants)
+
