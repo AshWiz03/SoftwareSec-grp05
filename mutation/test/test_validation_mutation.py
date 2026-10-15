@@ -53,6 +53,12 @@ def test_validate_email_empty():
     assert validate_email("") is not None
 
 #Validation signup 
+USERNAME_MIN_LENGTH = 4
+USERNAME_MAX_LENGTH = 32
+
+PASSWORD_MIN_LENGTH = 12
+PASSWORD_MAX_LENGTH = 64
+
 def test_validate_signup_all_valid():
     errors = validate_signup(
         email="user@example.com",
@@ -63,9 +69,9 @@ def test_validate_signup_all_valid():
 
 def test_validate_signup_all_invalid():
     errors = validate_signup(email="bad", login="x", password="short")
-    assert "email" in errors
-    assert "login" in errors
-    assert "password" in errors
+    assert errors["email"] == "Enter a valid email address."
+    assert errors["login"] == f"Username must be at least {USERNAME_MIN_LENGTH} characters."
+    assert errors["password"] == f"Password must be at least {PASSWORD_MIN_LENGTH} characters."
 
 
 #Validation sanitize filename
