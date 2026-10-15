@@ -9,7 +9,12 @@ from validation import (
     sanitize_display_name,
     is_pdf_file,
     is_valid_pdf_size,
+    USERNAME_MIN_LENGTH,
+    USERNAME_MAX_LENGTH,
+    PASSWORD_MIN_LENGTH,
+    PASSWORD_MAX_LENGTH,
 )
+
 
 #Validation login input (For create-user)
 def test_validate_login_valid():
@@ -21,6 +26,13 @@ def test_validate_login_too_short():
 def test_validate_login_reserved():
     assert validate_login("admin") is not None
 
+def test_validate_login_max_length_boundary():
+    assert validate_login("a" * USERNAME_MAX_LENGTH) is None
+    assert validate_login("a" * (USERNAME_MAX_LENGTH+1)) == f"Username must be at most {USERNAME_MAX_LENGTH} characters."
+
+def test_validate_login_min_length_boundary():
+    assert validate_login("a" * USERNAME_MIN_LENGTH) is None
+    assert validate_login("a" * (USERNAME_MIN_LENGTH-1)) == f"Username must be at least {USERNAME_MIN_LENGTH} characters."
 
 #Validation password input (For create-user)
 def test_validate_password_valid():
@@ -29,7 +41,7 @@ def test_validate_password_valid():
 def test_validate_password_too_short():
     assert validate_password("lko") is not None
 
-CONTROL_MSG = "Password may not contain control characters." #Should hit the correct condition
+CONTROL_MSG = "Password may not contain control characters." 
 @pytest.mark.parametrize("char", ["\x00", "\t", "\n", "\r", "\x1f", "\x7f"])
 def test_validate_password_reject_ascii_control(char):
     assert validate_password("TestPassword" + char) == CONTROL_MSG
@@ -53,11 +65,6 @@ def test_validate_email_empty():
     assert validate_email("") is not None
 
 #Validation signup 
-USERNAME_MIN_LENGTH = 4
-USERNAME_MAX_LENGTH = 32
-
-PASSWORD_MIN_LENGTH = 12
-PASSWORD_MAX_LENGTH = 64
 
 def test_validate_signup_all_valid():
     errors = validate_signup(
