@@ -13,6 +13,7 @@ from validation import (
     USERNAME_MAX_LENGTH,
     PASSWORD_MIN_LENGTH,
     PASSWORD_MAX_LENGTH,
+    UPLOAD_FILENAME_MAX_LENGTH,
 )
 
 
@@ -90,6 +91,11 @@ def test_sanitize_filename_invalid_filetype():
 
 def test_sanitize_filename_invalid_char():
     assert sanitize_filename("../../run.sh") is None
+
+def test_sanitize_filename_max_length_boundary():
+    name = "a" * (UPLOAD_FILENAME_MAX_LENGTH - len(".pdf")) + ".pdf"
+    assert sanitize_filename(name) == name #MAX SIZE
+    assert sanitize_filename("a" + name) is None #MAX SIZE + 1
 
 #Validation sanitize display name
 def test_sanitize_display_name_valid():
