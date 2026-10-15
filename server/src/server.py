@@ -1,4 +1,4 @@
-import os
+﻿import os
 import io
 import hashlib
 import datetime as dt
@@ -32,7 +32,7 @@ def create_app():
     # --- Config ---
     secret_key = os.environ.get("SECRET_KEY")
     if not secret_key:
-        raise RuntimeError("SECRET_KEY environment variable must be set — refusing to start with insecure default")
+        raise RuntimeError("SECRET_KEY environment variable must be set â€” refusing to start with insecure default")
     app.config["SECRET_KEY"] = secret_key
     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
@@ -367,7 +367,7 @@ def create_app():
         } for r in rows]
         return jsonify({"versions": versions}), 200
     
-    # GET /api/get-document or /api/get-document/<id>  → returns the PDF (inline)
+    # GET /api/get-document or /api/get-document/<id>  â†’ returns the PDF (inline)
     @app.get("/api/get-document")
     @app.get("/api/get-document/<int:document_id>")
     @require_auth
@@ -395,7 +395,7 @@ def create_app():
         except Exception as e:
             return jsonify({"error": f"database error: {str(e)}"}), 503
 
-        # Don’t leak whether a doc exists for another user
+        # Donâ€™t leak whether a doc exists for another user
         if not row:
             return jsonify({"error": "document not found"}), 404
 
@@ -428,7 +428,7 @@ def create_app():
         resp.headers["Cache-Control"] = "private, max-age=0, must-revalidate"
         return resp
     
-    # GET /api/get-version/<link>  → returns the watermarked PDF (inline)
+    # GET /api/get-version/<link>  â†’ returns the watermarked PDF (inline)
     @app.get("/api/get-version/<link>")
     def get_version(link: str):
         
@@ -446,7 +446,7 @@ def create_app():
         except Exception as e:
             return jsonify({"error": f"database error: {str(e)}"}), 503
 
-        # Don’t leak whether a doc exists for another user
+        # Donâ€™t leak whether a doc exists for another user
         if not row:
             return jsonify({"error": "document not found"}), 404
 
@@ -526,7 +526,7 @@ def create_app():
             return jsonify({"error": f"database error: {str(e)}"}), 503
 
         if not row:
-            # Don’t reveal others’ docs—just say not found
+            # Donâ€™t reveal othersâ€™ docsâ€”just say not found
             return jsonify({"error": "document not found"}), 404
 
         # Resolve and delete file (best effort)
@@ -569,7 +569,7 @@ def create_app():
         }), 200
         
         
-    # POST /api/create-watermark or /api/create-watermark/<id>  → create watermarked pdf and returns metadata
+    # POST /api/create-watermark or /api/create-watermark/<id>  â†’ create watermarked pdf and returns metadata
     @app.post("/api/create-watermark")
     @app.post("/api/create-watermark/<int:document_id>")
     @require_auth
@@ -645,7 +645,7 @@ def create_app():
         except Exception as e:
             return jsonify({"error": f"watermark applicability check failed: {e}"}), 400
 
-        # apply watermark → bytes
+        # apply watermark â†’ bytes
         try:
             wm_bytes: bytes = WMUtils.apply_watermark(
                 pdf=str(file_path),
@@ -695,7 +695,15 @@ def create_app():
                         "path": dest_path
                     },
                 )
-                vid = int(conn.execute(text("SELECT LAST_INSERT_ID()")).scalar())
+                vid = int(conn.execute(text("SELECT LAST_INSERT_ID()")).scalar())        
+        except IntegrityError as e:
+            # A unique-constraint violation (e.g. duplicate link) is a client-
+            # facing conflict, not a server-availability problem - 409, not 503.
+            try:
+                dest_path.unlink(missing_ok=True)
+            except Exception:
+                pass
+            return jsonify({"error": f"conflicting watermark version: {e}"}), 409
         except Exception as e:
             # best-effort cleanup if DB insert fails
             try:
@@ -703,7 +711,6 @@ def create_app():
             except Exception:
                 pass
             return jsonify({"error": f"database error during version insert: {e}"}), 503
-
         return jsonify({
             "id": vid,
             "documentid": doc_id,
@@ -981,4 +988,6 @@ app = create_app()
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
+
 
