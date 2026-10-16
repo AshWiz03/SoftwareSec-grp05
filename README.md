@@ -20,7 +20,7 @@ git clone https://github.com/AshWiz03/SoftwareSec-grp05.git
 
 Note that you should probably fork the repo and clone your own repo
 
-# Configuration
+### Configuration
  
 Clone the repository and create the environment file:
  
