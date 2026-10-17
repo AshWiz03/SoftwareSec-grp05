@@ -15,14 +15,14 @@ from watermarking_method import (
     InvalidKeyError
 )
 
-#  Markers
+
 _START_MARKER = "TATOU_HMAC_START:"
 _END_MARKER = ":TATOU_HMAC_END"
 
-# Embedding positions
+
 _POSITIONS = [(50, 50), (200, 400), (400, 700), (100, 300)]
 
-# Font names 
+
 _FONTS = ["helv", "tiro", "cour"]
 
 def _encode_binary(payload: str) -> str:
@@ -83,9 +83,9 @@ class HMACsignedwatermark(WatermarkingMethod):
                     page.insert_text(
                         pos,
                         zw_payload,
-                        fontname=_FONTS[i % len(_FONTS)],  # rotate fonts per position
+                        fontname=_FONTS[i % len(_FONTS)], 
                         fontsize=1,
-                        render_mode=3  # invisible — does not render visually
+                        render_mode=3  
                     )
 
             return doc.write()
@@ -97,10 +97,7 @@ class HMACsignedwatermark(WatermarkingMethod):
     def read_secret(self, pdf: PdfSource, key: str) -> str:
         data = load_pdf_bytes(pdf)
 
-        # ── Step 1: Extract binary-encoded token from invisible text ──────────
-        # Scans every page looking for our markers.
-        # Stops at the first match — all positions contain identical content
-        # so finding one is sufficient.
+       
         token = None
         try:
             doc = fitz.open(stream=data, filetype="pdf")
@@ -122,10 +119,7 @@ class HMACsignedwatermark(WatermarkingMethod):
                 "or the watermark was removed."
             )
 
-        # ── Step 2: Decrypt and verify with Fernet ────────────────────────────
-        # InvalidToken fires on EITHER wrong key OR any tampering.
-        # This gives us both authentication and confidentiality in one call.
-        # KEPT from original method — no changes needed here.
+        
         fernet_key = _derive_fernet_key(key)
         f = Fernet(fernet_key)
         try:

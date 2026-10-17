@@ -40,7 +40,7 @@ class HMACsignedwatermark(WatermarkingMethod):
 
         payload = {"secret": secret}
         payload_bytes = json.dumps(payload, sort_keys=True).encode()
-        token = f.encrypt(payload_bytes)  # encrypted + authenticated + randomized, all in one
+        token = f.encrypt(payload_bytes) 
 
         encoded = _MARKER + b":" + token + b":" + _MARKER
         return data + b"\n" + encoded
