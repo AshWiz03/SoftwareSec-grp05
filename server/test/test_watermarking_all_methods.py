@@ -6,11 +6,11 @@ from pathlib import Path
 import pytest
 
 
-# --------- collect all methods from the registry ----------
+
 try:
     wm = importlib.import_module("watermarking_utils")
     METHODS = getattr(wm, "METHODS", {})
-except Exception:  # registry/module missing
+except Exception:  
     METHODS = {}
 
 CASES: list[tuple[str, object]] = []
@@ -22,7 +22,7 @@ if not CASES:
     pytest.skip("No watermarking methods registered in watermarking_utils.METHODS", allow_module_level=True)
 
 
-# --------- fixtures ----------
+
 @pytest.fixture(scope="session")
 def sample_pdf_path(tmp_path_factory) -> Path:
     """Minimal but recognizable PDF bytes."""
@@ -46,11 +46,11 @@ def key() -> str:
 def _as_instance(impl: object) -> object:
     """Return an instance for class objects; pass instances through."""
     if inspect.isclass(impl):
-        return impl()  # assumes zero-arg constructor
+        return impl()  
     return impl
 
 
-# --------- parameterization over all methods ----------
+
 @pytest.mark.parametrize("method_name,impl", CASES, ids=[n for n, _ in CASES])
 class TestAllWatermarkingMethods:
     def test_is_watermark_applicable(self, method_name: str, impl: object, sample_pdf_path: Path):
