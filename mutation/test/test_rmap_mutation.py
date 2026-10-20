@@ -80,7 +80,7 @@ def test_full_rmap_handshake_flow(client, uploaded_document):
     resp2_json = resp2.get_json()
     assert "payload" in resp2_json
 
-    link_token = rmap_Client.process_resp2(resp2_json["payload"])
+    link_token = rmap_Client.process_resp2(resp2_json)
     
     assert link_token == rmap_Client.expected_link
     print("\nFINISHED ASSERTIONS")

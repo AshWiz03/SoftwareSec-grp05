@@ -956,7 +956,7 @@ def create_app():
             return jsonify({"error": f"database error: {str(e)}"}), 503
         
 
-        return jsonify({"payload": encrypted_response}), 200
+        return jsonify(encrypted_response), 200
 
 
 
