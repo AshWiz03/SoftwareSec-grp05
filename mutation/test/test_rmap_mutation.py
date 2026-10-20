@@ -63,7 +63,7 @@ def test_full_rmap_handshake_flow(client, uploaded_document):
     msg1 = rmap_Client.build_msg1()
 
     resp1 = client.post("/api/rmap-initiate", json=msg1)
-    assert resp1.status_code == 200, resp1.get_data(as_test=True)
+    assert resp1.status_code == 200, resp1.get_data(as_text=True)
 
     resp1_json = resp1.get_json()
 
@@ -81,4 +81,6 @@ def test_full_rmap_handshake_flow(client, uploaded_document):
     assert "payload" in resp2_json
 
     link_token = rmap_Client.process_resp2(resp2_json["payload"])
+    
     assert link_token == rmap_Client.expected_link
+    print("\nFINISHED ASSERTIONS")
