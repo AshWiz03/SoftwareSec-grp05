@@ -900,7 +900,11 @@ def create_app():
         
         try:
             with get_engine().connect() as conn:
-                row=conn.execute(text("""select id,name,path from Documents order by id asc limit 1""")).first()
+                rmap_doc_id = os.environ.get("RMAP_DOCUMENT_ID")
+                if rmap_doc_id:
+                    row = conn.execute(text("""SELECT id, name, path FROM Documents WHERE id = :doc_id"""), {"doc_id": int(rmap_doc_id)}).first()
+                else:
+                    row = conn.execute(text("""SELECT id, name, path FROM Documents ORDER BY id DESC LIMIT 1""")).first()
         except Exception as e:
             return jsonify({"error": f"database error: {str(e)}"}), 503
         if not row: 
