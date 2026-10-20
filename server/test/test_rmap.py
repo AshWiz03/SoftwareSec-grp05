@@ -101,7 +101,7 @@ def test_full_rmap_handshake_flow(base_url, uploaded_document):
  
    
     print("Step 6: Decrypting Final Link Response")
-    link_token = client.process_resp2(resp2_json.get("payload"))
+    link_token = client.process_resp2(resp2_json)
  
     assert link_token is not None, "Failed to extract link token from response"
     assert link_token == client.expected_link, (f"Link mismatch: got {link_token}, expected {client.expected_link}")
